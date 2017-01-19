@@ -3,7 +3,8 @@ language: java
 jdk:
    - oraclejdk8
 
-script:
+build:
+  ci:
    - gradle test
 
 notifications:
