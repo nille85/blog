@@ -16,7 +16,9 @@ build:
   ci:
    - gradle test
   on_success:
-   - git push -f git@heroku.com:fierce-beyond-29546.git master
+    -test -f ~/.ssh/id_rsa.heroku || ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.heroku && heroku keys:add ~/.ssh/id_rsa.heroku
+    - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app fierce-beyond-29546
+    - git push -f git@heroku.com:fierce-beyond-29546.git master
 
 notifications:
   email:
