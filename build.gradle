@@ -22,11 +22,28 @@ repositories {
 dependencies {
     // The production code uses Guava
     compile 'com.google.guava:guava:20.0'
+    //Spark web framework
+    compile group: 'com.sparkjava', name: 'spark-core', version: '2.5.4'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
 
+version = '1.0.0-SNAPSHOT'
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'be.nille.ci.App'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+	manifest {
+        attributes 'Implementation-Title': 'Continuous Integration Test',
+        	'Implementation-Version': version,
+        	'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
