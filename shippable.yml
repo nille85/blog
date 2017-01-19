@@ -17,6 +17,8 @@ build:
    - gradle test
   on_success:
     - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app fierce-beyond-29546
+    - ssh-keygen -t rsa
+    - heroku keys:add
     - git push -f heroku origin:master
 
 notifications:
