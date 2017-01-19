@@ -2,10 +2,18 @@ language: java
 
 jdk:
    - oraclejdk8
+   
+env:
+  global:
+    - APP_NAME=fierce-beyond-29546
+
+
 
 build:
   ci:
    - gradle test
+  on_success:
+   - git push -f git@heroku.com:$APP_NAME.git master
 
 notifications:
   email:
