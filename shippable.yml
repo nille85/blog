@@ -7,6 +7,11 @@ env:
   global:
     - APP_NAME=fierce-beyond-29546
 
+integrations:
+  key:
+    - integrationName: Heroku
+      type: ssh-key
+
 
 build:
   ci:
