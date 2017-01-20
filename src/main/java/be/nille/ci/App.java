@@ -12,7 +12,12 @@ public class App {
     }
 
     public static void main(String[] args) {
-        port(80);
+        String portString = System.getenv("PORT");
+        if(portString == null){
+          portString = "8085";
+        }
+        port(Integer.valueOf(portString));
+        
         get("/hello", (req, res) -> new App().getGreeting());
     }
 }
