@@ -6,20 +6,13 @@ jdk:
 env:
   global:
     - APP_NAME=fierce-beyond-29546
-    - secure: lyJFRYzpRop+kGEZ/JyqcPFd2GrFXJ5B+dS4OXVAZCjmy4eUUgAQp/esQCkWlVEWLbZQ/m7xGOFuIL7aEczTZLosK0A62DFHhP0k/KmGhLonyEQIxn+zrOG53xxgLzyabbCcYleND1qAQmnnAweruIVtXn1igbQDnjKezH1NQWRn4s+mzTvRkjr7YKxt7kLrRlHyiI9Ks1qU0v+5go1GUjyWH2fGscU3v2xnwqtd1DCJGM1fAblm+5tZTdiFWn56gm86SU11rUeDb9fNl/HgvyFL0vjd4fbIxGwi3f9UN30xpNyYFbVzMaE2UXrxdTrApTGfB4TfBnWqfMAtDr7Kgw==
-
-before_install:
-  - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
 
 build:
   ci:
    - gradle test
   on_success:
-    - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app fierce-beyond-29546
-    - ssh-keygen -t rsa
-    - heroku keys:add
-    - git push -f heroku origin:master
+   - git push -f git@heroku.com:$APP_NAME.git master
 
 notifications:
   email:
