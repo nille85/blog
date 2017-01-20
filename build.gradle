@@ -47,3 +47,6 @@ task fatJar(type: Jar) {
     with jar
 }
 
+task stage(dependsOn: ['fatJar', 'clean'])
+fatJar.mustRunAfter clean
+
