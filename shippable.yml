@@ -10,7 +10,7 @@ env:
 integrations:
   key:
     - integrationName: Heroku
-    - type: ssh-key
+      type: ssh-key
 
 
 build:
