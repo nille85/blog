@@ -16,4 +16,5 @@ include 'services:webservice'
 */
 println 'initializing build'
 include 'blog-web'
+include 'blog-dal'
 rootProject.name = 'blog'
