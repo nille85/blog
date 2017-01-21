@@ -19,15 +19,26 @@ repositories {
     jcenter()
 }
 
+
 dependencies {
    
     compile 'com.google.guava:guava:20.0'
     //Spark web framework
     compile group: 'com.sparkjava', name: 'spark-core', version: '2.5.4'
 
+    //FJtwig engine
+    compile "org.jtwig:jtwig-core:5.65"
 
     //lombok
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
+    
+    //bridge logging from JCL to SLF4j
+    compile 'org.slf4j:jcl-over-slf4j:1.7.12'
+
+    //Logback
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+    
+   
     
     
     // Use JUnit test framework
@@ -44,7 +55,7 @@ targetCompatibility = '1.8'
 
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
-	manifest {
+    manifest {
         attributes 'Implementation-Title': 'Continuous Integration Test',
         	'Implementation-Version': version,
         	'Main-Class': mainClassName
