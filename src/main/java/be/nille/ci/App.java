@@ -18,7 +18,7 @@ public class App {
 
         staticFiles.location("/public");
 
-        get("/*", (request, response) -> {
+        get("/", (request, response) -> {
     
             IndexPage page = new IndexPage(new Blog("Nille.be"));
             return page.handleRequest(request, response);

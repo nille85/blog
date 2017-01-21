@@ -25,7 +25,7 @@ public class IndexTemplate implements Template {
     }
     
     public IndexTemplate(final Blog blog){
-        this("templates/index.twig", blog);
+        this("templates/post.twig", blog);
     }
     
     @Override
