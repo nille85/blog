@@ -14,5 +14,6 @@ include 'shared'
 include 'api'
 include 'services:webservice'
 */
-
-rootProject.name = 'continuous-integration-test'
+println 'initializing build'
+include 'blog-web'
+rootProject.name = 'blog'

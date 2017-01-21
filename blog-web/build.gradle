@@ -56,7 +56,7 @@ targetCompatibility = '1.8'
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': 'Continuous Integration Test',
+        attributes 'Implementation-Title': 'Blog',
         	'Implementation-Version': version,
         	'Main-Class': mainClassName
     }
