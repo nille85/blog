@@ -44,6 +44,15 @@ task integration(type: Test, description: 'Runs the integration tests.', group: 
   classpath = sourceSets.integration.runtimeClasspath
 }
 
+
+task copyTestResults(type: Copy) {
+    from 'build/test-results/test'
+    into '../shippable/testresults'
+    include '**/*.xml'
+}
+
+copyTestResults.mustRunAfter test
+
 //add logging to the console for tests, remember to first call "clean" task in order to see output
 test {
     reports {

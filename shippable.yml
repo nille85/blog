@@ -16,14 +16,10 @@ integrations:
 
 build:
   ci:
-   - mkdir -p shippable/testresults
    - gradle test
    
   on_success:
    - git push -f git@heroku.com:$APP_NAME.git master
-   
-  post_ci:
-   - ln -s blog-dal/build/test-results/test/*.xml shippable/test-results 
 
 notifications:
   email:
