@@ -16,7 +16,7 @@ integrations:
 
 build:
   ci:
-   - gradle test
+   - gradle test copyTestResults
    
   on_success:
    - git push -f git@heroku.com:$APP_NAME.git master
