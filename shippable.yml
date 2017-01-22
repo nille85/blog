@@ -23,7 +23,7 @@ build:
    - git push -f git@heroku.com:$APP_NAME.git master
    
   post_ci:
-   - cp blog-dal/build/test-results/test/*.xml shippable/test-results 
+   - ln -s blog-dal/build/test-results/test/*.xml shippable/test-results 
 
 notifications:
   email:
