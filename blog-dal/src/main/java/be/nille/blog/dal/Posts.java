@@ -16,11 +16,13 @@ public interface Posts {
     
     List<Post> findAll();
     
-    void add(final Post post);
+    Post findOne(String id);
     
-    void update(final Post post);
+    void add(Post post);
     
-    void remove(final Post post);
+    void update(Post post);
+    
+    void remove(Post post);
     
     
     

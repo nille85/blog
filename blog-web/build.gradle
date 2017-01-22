@@ -48,7 +48,7 @@ dependencies {
 
 version = '1.0.0-SNAPSHOT'
 // Define the main class for the application
-mainClassName = 'be.nille.ci.App'
+mainClassName = 'be.nille.blog.App'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 

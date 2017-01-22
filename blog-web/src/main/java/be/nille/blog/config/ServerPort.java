@@ -3,21 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.component.navigation;
+package be.nille.blog.config;
 
-import lombok.Getter;
 
 /**
  *
  * @author Niels Holvoet
  */
-@Getter
-public class Blog {
+
+public interface ServerPort {
     
-    private final String title;
+    int getValue();
     
-    public Blog(final String title){
-        this.title = title;
-    }
     
 }

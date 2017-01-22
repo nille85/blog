@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.ci;
+package be.nille.blog.config;
 
+import be.nille.blog.config.SimpleServerPort;
+import be.nille.blog.config.ServerPort;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.freemarker;
+package be.nille.jtwig;
+
 
 
 import java.io.IOException;
@@ -21,13 +22,15 @@ import org.junit.Test;
 public class JtwigTest {
 
     @Test
-    public void testExample() throws IOException {
+    public void testTemplate() throws IOException {
    
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/example.twig");
         JtwigModel model = JtwigModel.newModel().with("var", "World");
         String output = template.render(model);
         assertEquals("Hello World", output);
     }
+    
+     
     
    
 

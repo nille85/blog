@@ -15,6 +15,7 @@ import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -48,6 +49,15 @@ public class MgPosts implements Posts{
     }
     
     @Override
+    public Post findOne(String id) {
+        Bson bson = eq("_id", id);
+        FindIterable<Document> iterable = collection.find(bson);
+   
+        Document document = iterable.first();
+        return fromDocument(document);
+    }
+    
+    @Override
     public void add(final Post post) {
         
         collection.insertOne(fromPost(post));
@@ -77,6 +87,8 @@ public class MgPosts implements Posts{
         return document.append("title", post.getTitle())
                 .append("lead", post.getLead());
     }
+
+   
        
 
     

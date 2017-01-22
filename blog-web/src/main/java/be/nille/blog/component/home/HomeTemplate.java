@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.component.navigation;
+package be.nille.blog.component.home;
 
 import be.nille.blog.component.Template;
+import be.nille.blog.dal.Post;
+import java.util.List;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -13,24 +15,24 @@ import org.jtwig.JtwigTemplate;
  *
  * @author Niels Holvoet
  */
-public class IndexTemplate implements Template {
+public class HomeTemplate implements Template {
     
     private final JtwigTemplate template;
-    private final Blog blog;
+    private final List<Post> posts;
     
-    public IndexTemplate(final String templateLocation, final Blog blog){
+    public HomeTemplate(final String templateLocation, final List<Post> posts){
         this.template = JtwigTemplate.classpathTemplate(templateLocation);
-        this.blog = blog; 
+        this.posts = posts; 
         
     }
     
-    public IndexTemplate(final Blog blog){
-        this("templates/post.twig", blog);
+    public HomeTemplate(final List<Post> posts){
+        this("templates/posts.twig", posts);
     }
     
     @Override
     public String render(){
-        JtwigModel model = JtwigModel.newModel().with("blog", blog);
+        JtwigModel model = JtwigModel.newModel().with("posts", posts);
         return template.render(model);
     }
     
