@@ -46,12 +46,23 @@ task integration(type: Test, description: 'Runs the integration tests.', group: 
 
 //add logging to the console for tests, remember to first call "clean" task in order to see output
 test {
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }     
+    
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
     }
 }
 
 integration {
+    
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    } 
+    
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
     }
