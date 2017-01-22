@@ -1,21 +1,20 @@
 package be.nille.blog;
 
 import be.nille.blog.component.Page;
-import be.nille.blog.component.Template;
 import be.nille.blog.component.home.HomePage;
-import be.nille.blog.component.home.HomeTemplate;
-import be.nille.blog.dal.Posts;
-import be.nille.blog.dal.mongo.MgPosts;
+import be.nille.blog.component.post.PostPage;
 import be.nille.blog.config.ServerPort;
 import be.nille.blog.config.SimpleServerPort;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.Document;
+import static spark.Spark.before;
+import static spark.Spark.exception;
 import static spark.Spark.get;
+import static spark.Spark.halt;
 import static spark.Spark.port;
+import static spark.Spark.redirect;
 import static spark.Spark.staticFiles;
 
 /*
@@ -31,7 +30,7 @@ public class App {
     }
 
     public MongoDatabase getDatabase() {
-        
+
         MongoClient mongoClient = new MongoClient(
                 new MongoClientURI(databaseURL)
         );
@@ -42,15 +41,33 @@ public class App {
     public static void main(String[] args) throws Exception {
         ServerPort port = new SimpleServerPort(System.getenv("PORT"));
         port(port.getValue());
+
         staticFiles.location("/public");
-        
+
         App app = new App(System.getenv("MONGO_URL"));
 
-        get("/", (request, response) -> {
+        redirect.get("/", "/posts");
+        
+        get("/posts", (request, response) -> {
             Page page = new HomePage(app.getDatabase());
-            return page.handleRequest();
-            }
+            return page.handleRequest(request, response);
+        }
         );
+
+        //TODO debug
+        get("/posts/:id", (request, response) -> {
+            Page page = new PostPage(app.getDatabase());
+            return page.handleRequest(request, response);
+        });
+
+        before("/protected/*", (request, response) -> {
+            // ... check if authenticated
+            halt(401, "Go Away!");
+        });
+        
+        exception(RuntimeException.class, (exception, request, response) -> {
+            log.error(exception.getMessage());         
+        });
 
     }
 

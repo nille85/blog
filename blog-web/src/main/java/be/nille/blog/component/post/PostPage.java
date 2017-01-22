@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.component.home;
+package be.nille.blog.component.post;
 
+import be.nille.blog.component.home.*;
 import be.nille.blog.component.Page;
 import be.nille.blog.component.Template;
+import be.nille.blog.dal.DPost;
+import be.nille.blog.dal.Post;
 import be.nille.blog.dal.Posts;
 import be.nille.blog.dal.mongo.MgPosts;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import spark.Request;
 import spark.Response;
@@ -19,20 +24,27 @@ import spark.Response;
  *
  * @author Niels Holvoet
  */
-public class HomePage implements Page {
+@Slf4j
+public class PostPage implements Page {
 
     private final MongoDatabase database;
     
-    public HomePage(MongoDatabase database) {
+    public PostPage(MongoDatabase database) {
         this.database = database;
     }
 
     @Override
     public String handleRequest(Request request, Response response) {
+        String postId = request.params(":id");
         MongoCollection<Document> collection = database.getCollection("posts");
         Posts posts = new MgPosts(collection);
-
-        Template template = new HomeTemplate(posts.findAll());
+        
+        Optional<Post> optional = posts.findOne(postId);
+        Post post = optional.orElseThrow(() -> new RuntimeException(
+                String.format("the id %s could not be found", postId)
+        ));
+      
+        Template template = new PostTemplate(post);
         return template.render();
     }
 

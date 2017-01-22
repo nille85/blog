@@ -9,6 +9,9 @@ package be.nille.blog.dal.mongo;
 import be.nille.blog.dal.DPost;
 import be.nille.blog.dal.Post;
 import be.nille.blog.dal.Posts;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -19,6 +22,7 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 
 /**
@@ -49,17 +53,19 @@ public class MgPosts implements Posts{
     }
     
     @Override
-    public Post findOne(String id) {
-        Bson bson = eq("_id", id);
+    public Optional<Post> findOne(String id) {
+        Bson bson = eq("_id", new ObjectId(id));
         FindIterable<Document> iterable = collection.find(bson);
    
         Document document = iterable.first();
-        return fromDocument(document);
+        if(document != null){
+            return Optional.of(fromDocument(document));
+        }
+        return Optional.empty();
     }
     
     @Override
     public void add(final Post post) {
-        
         collection.insertOne(fromPost(post));
     }
     
@@ -77,20 +83,20 @@ public class MgPosts implements Posts{
 
     private Post fromDocument(Document document) {
         return new MgPost(
-                document.getObjectId("_id").toHexString(),
-                new DPost(document.getString("title"), document.getString("lead"))
-        );
+                    document.getObjectId("_id").toHexString(),
+                    new DPost(
+                            document.getString("title"),
+                            document.getString("lead"),
+                            document.get("comments", List.class))
+                );      
     }
     
-    private Document fromPost(final Post post){
+    public Document fromPost(final Post post) {
         Document document = new Document();
-        return document.append("title", post.getTitle())
-                .append("lead", post.getLead());
-    }
-
-   
        
-
-    
-    
+        return document.append("title", post.getTitle())
+                .append("lead", post.getLead())
+                .append("comments", post.getComments());
+    }
+       
 }

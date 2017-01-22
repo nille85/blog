@@ -5,7 +5,9 @@
  */
 package be.nille.blog.dal.mongo;
 
+import be.nille.blog.dal.Comment;
 import be.nille.blog.dal.Post;
+import java.util.List;
 
 /**
  *
@@ -34,6 +36,11 @@ public class MgPost implements Post {
     @Override
     public String getLead() {
         return origin.getLead();
+    }
+
+    @Override
+    public List<Comment> getComments() {
+        return origin.getComments();
     }
     
 }

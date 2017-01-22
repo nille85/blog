@@ -5,12 +5,15 @@
  */
 package be.nille.blog.component;
 
+import spark.Request;
+import spark.Response;
+
 /**
  *
  * @author Niels Holvoet
  */
 public interface Page {
     
-    String handleRequest();
+    String handleRequest(Request request, Response response);
     
 }

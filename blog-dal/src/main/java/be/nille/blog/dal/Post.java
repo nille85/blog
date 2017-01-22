@@ -5,6 +5,8 @@
  */
 package be.nille.blog.dal;
 
+import java.util.List;
+
 /**
  *
  * @author Niels Holvoet
@@ -16,5 +18,7 @@ public interface Post {
     String getTitle();
     
     String getLead();
+    
+    List<Comment> getComments();
     
 }

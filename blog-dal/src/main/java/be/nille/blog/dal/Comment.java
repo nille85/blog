@@ -5,29 +5,19 @@
  */
 package be.nille.blog.dal;
 
-import java.util.List;
-import java.util.Optional;
+import lombok.Getter;
 
 /**
  *
  * @author Niels Holvoet
  */
-public interface Posts {
+@Getter
+public class Comment {
     
+    private final String text;
     
-    List<Post> findAll();
-    
-    Optional<Post> findOne(String id);
-    
-    void add(Post post);
-    
-    void update(Post post);
-    
-    void remove(Post post);
-    
-    
-    
-    
-    
+    public Comment(final String text){
+        this.text = text;
+    }
     
 }

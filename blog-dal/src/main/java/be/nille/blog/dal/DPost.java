@@ -5,6 +5,8 @@
  */
 package be.nille.blog.dal;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import org.bson.Document;
 
@@ -21,21 +23,26 @@ public class DPost implements Post{
     
     private final String lead;
     
+    private final List<Comment> comments;
+    
     public DPost(final String title, final String lead){
-        this.title = title;
-        this.lead = lead;
+        this(title,lead,new ArrayList<>());
     }
     
-    public Document toDocument() {
-        Document document = new Document();
-       
-        return document.append("title", title)
-                .append("lead", lead);
+    public DPost(final String title, final String lead, final List<Comment> comments){
+        this.title = title;
+        this.lead = lead;
+        this.comments = comments;
     }
-
+    
     @Override
     public String getId() {
         throw new RuntimeException("Id is not available because this post was not saved yet");
+    }
+
+    @Override
+    public List<Comment> getComments() {
+        return comments;
     }
     
 }
