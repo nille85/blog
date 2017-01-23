@@ -48,42 +48,40 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         
-        ServerPort port = new SimpleServerPort(System.getenv("PORT"));
-        port(port.getValue());
-
-        staticFiles.location("/public");
-
         App app = new App(System.getenv("MONGO_URL"));
+        
+        ServerPort port = new SimpleServerPort(System.getenv("PORT"));
+        Service service = Service.ignite();
+        service.staticFileLocation("/public");
+        service.port(port.getValue());
 
-        redirect.get("/", "/posts");
 
-        get("/posts", (request, response) -> {
+        service.redirect.get("/", "/posts");
+
+        service.get("/posts", (request, response) -> {
             Page page = new HomePage(app.getDatabase());
             return page.handleRequest(request, response);
         }
         );
 
-        get("/posts/:id", (request, response) -> {
+        service.get("/posts/:id", (request, response) -> {
             Page page = new PostPage(app.getDatabase());
             return page.handleRequest(request, response);
         });
         
-        
-       
-          
+               
 
-        post("posts/:id", (request, response) -> {
+        service.post("posts/:id", (request, response) -> {
             PostCommentRequest pcr = new PostCommentRequest(request);
-
-            return pcr.toString();
+            return pcr.getPostId() + ":" + pcr.getCommentAuthor() + ":" + pcr.getCommentText();
         });
 
-        before("/protected/*", (request, response) -> {
+        service.before("/protected/*", (request, response) -> {
             // ... check if authenticated
             halt(401, "Go Away!");
         });
 
-        exception(RuntimeException.class, (exception, request, response) -> {
+        service.exception(RuntimeException.class, (exception, request, response) -> {
             log.error(exception.getMessage());
         });
         
