@@ -7,8 +7,9 @@ package be.nille.blog.component.home;
 
 import be.nille.blog.component.Page;
 import be.nille.blog.component.Template;
-import be.nille.blog.dal.Posts;
+import be.nille.blog.dal.Post;
 import be.nille.blog.dal.mongo.MgPosts;
+import be.nille.blog.dal.mongo.MongoRepository;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -30,7 +31,7 @@ public class HomePage implements Page {
     @Override
     public String handleRequest(Request request, Response response) {
         MongoCollection<Document> collection = database.getCollection("posts");
-        Posts posts = new MgPosts(collection);
+        MongoRepository<Post> posts = new MgPosts(collection);
 
         Template template = new HomeTemplate(posts.findAll());
         return template.render();

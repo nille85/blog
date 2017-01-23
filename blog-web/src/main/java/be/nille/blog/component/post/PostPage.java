@@ -5,13 +5,11 @@
  */
 package be.nille.blog.component.post;
 
-import be.nille.blog.component.home.*;
 import be.nille.blog.component.Page;
 import be.nille.blog.component.Template;
-import be.nille.blog.dal.DPost;
 import be.nille.blog.dal.Post;
-import be.nille.blog.dal.Posts;
 import be.nille.blog.dal.mongo.MgPosts;
+import be.nille.blog.dal.mongo.MongoRepository;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.Optional;
@@ -37,7 +35,7 @@ public class PostPage implements Page {
     public String handleRequest(Request request, Response response) {
         String postId = request.params(":id");
         MongoCollection<Document> collection = database.getCollection("posts");
-        Posts posts = new MgPosts(collection);
+        MongoRepository<Post> posts = new MgPosts(collection);
         
         Optional<Post> optional = posts.findOne(postId);
         Post post = optional.orElseThrow(() -> new RuntimeException(

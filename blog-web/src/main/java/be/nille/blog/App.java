@@ -2,18 +2,26 @@ package be.nille.blog;
 
 import be.nille.blog.component.Page;
 import be.nille.blog.component.home.HomePage;
+import be.nille.blog.component.post.PostCommentRequest;
 import be.nille.blog.component.post.PostPage;
 import be.nille.blog.config.ServerPort;
 import be.nille.blog.config.SimpleServerPort;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.RouteImpl;
+import spark.Service;
 import static spark.Spark.before;
 import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.halt;
 import static spark.Spark.port;
+import static spark.Spark.post;
 import static spark.Spark.redirect;
 import static spark.Spark.staticFiles;
 
@@ -39,6 +47,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
+        
         ServerPort port = new SimpleServerPort(System.getenv("PORT"));
         port(port.getValue());
 
@@ -47,28 +56,37 @@ public class App {
         App app = new App(System.getenv("MONGO_URL"));
 
         redirect.get("/", "/posts");
-        
+
         get("/posts", (request, response) -> {
             Page page = new HomePage(app.getDatabase());
             return page.handleRequest(request, response);
         }
         );
 
-        //TODO debug
         get("/posts/:id", (request, response) -> {
             Page page = new PostPage(app.getDatabase());
             return page.handleRequest(request, response);
+        });
+        
+        
+       
+          
+
+        post("posts/:id", (request, response) -> {
+            PostCommentRequest pcr = new PostCommentRequest(request);
+
+            return pcr.toString();
         });
 
         before("/protected/*", (request, response) -> {
             // ... check if authenticated
             halt(401, "Go Away!");
         });
-        
-        exception(RuntimeException.class, (exception, request, response) -> {
-            log.error(exception.getMessage());         
-        });
 
+        exception(RuntimeException.class, (exception, request, response) -> {
+            log.error(exception.getMessage());
+        });
+        
     }
 
 }

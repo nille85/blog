@@ -5,13 +5,9 @@
  */
 package be.nille.blog.dal;
 
-import be.nille.blog.dal.mongo.MgPosts;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.Document;
 
 import org.junit.Test;
 

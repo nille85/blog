@@ -11,9 +11,8 @@ import java.util.List;
  *
  * @author Niels Holvoet
  */
-public interface Post {
+public interface Post extends Entity {
     
-    String getId();
     
     String getTitle();
     
