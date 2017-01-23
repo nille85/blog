@@ -9,6 +9,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 
@@ -19,18 +20,25 @@ import org.mongodb.morphia.Datastore;
 @Slf4j
 public class MorphiaIT {
 
-    @Test
+    @Ignore
     public void test() {
         final String url = System.getenv("MONGO_URL");
         MongoClient client = new MongoClient(
                 new MongoClientURI(url)
         );
+        
+        
         DatastoreFactory factory = new DatastoreFactory();
         Datastore datastore = factory.createDataStore(client, "openid-connect");
+       
+        User user = new User("johndoe@mail.be", "password");
+        datastore.save(user);
         
+        Category category = new Category("MongoDB");
+        datastore.save(category);
         
         for(int i=1;i<=10;i++){
-            Post post = new Post("Blog post " + i, "Lead text " + i);
+            Post post = new Post(category, user, new Content("Blog post " + i, "Lead text "));
             datastore.save(post);
         }
         

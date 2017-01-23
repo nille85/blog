@@ -16,6 +16,7 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  *
@@ -31,9 +32,15 @@ public class Post {
 
     @Id
     private ObjectId id;
-    private String title;
+    
+    @Reference
+    private User author;
 
-    private String lead;
+    @Embedded
+    private Content content;
+    
+    @Reference
+    private Category category;
 
     @Embedded
     private List<Comment> comments;
@@ -42,10 +49,11 @@ public class Post {
         this.comments = new ArrayList<>();
     }
 
-    public Post(final String title, final String lead) {
-        this.title = title;
-        this.lead = lead;
+    public Post(final Category category, final User author, final Content content) {
+        this.content = content;
         this.comments = new ArrayList<>();
+        this.author = author;
+        this.category = category;
     }
 
     public void addComment(Comment comment) {
