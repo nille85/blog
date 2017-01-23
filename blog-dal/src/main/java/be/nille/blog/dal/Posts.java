@@ -17,13 +17,14 @@ public interface Posts {
     
     List<Post> findAll();
     
-    Optional<Post> findOne(String id);
+    Optional<Post> findOne(String postId);
     
     void add(Post post);
     
     void update(Post post);
     
     void remove(Post post);
+    
     
     
     

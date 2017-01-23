@@ -14,10 +14,12 @@ import lombok.Getter;
 @Getter
 public class Comment {
     
+    private final String author;
     private final String text;
     
-    public Comment(final String text){
+    public Comment(final String author, final String text){
         this.text = text;
+        this.author = author;
     }
     
 }

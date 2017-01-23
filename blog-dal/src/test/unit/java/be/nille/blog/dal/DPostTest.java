@@ -6,6 +6,7 @@
 package be.nille.blog.dal;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -24,6 +25,14 @@ public class DPostTest {
     public void leadShouldBeCorrect(){
         Post post = new DPost("title", "the lead");
         assertEquals("the lead", post.getLead());
+    }
+    
+    @Test
+    public void addComment(){
+        Post post = new DPost("title", "the lead");
+        Post updatedPost = post.addComment(new Comment("john doe","this is my comment"));
+        assertTrue(updatedPost.getComments().size() == 1);
+        assertTrue(post.getComments().isEmpty());
     }
     
 }

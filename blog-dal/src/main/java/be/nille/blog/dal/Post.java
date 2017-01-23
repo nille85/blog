@@ -21,4 +21,6 @@ public interface Post {
     
     List<Comment> getComments();
     
+    Post addComment(Comment comment);
+    
 }

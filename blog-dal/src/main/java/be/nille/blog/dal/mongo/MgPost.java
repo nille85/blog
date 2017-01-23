@@ -42,5 +42,10 @@ public class MgPost implements Post {
     public List<Comment> getComments() {
         return origin.getComments();
     }
+
+    @Override
+    public Post addComment(Comment comment) {
+        return new MgPost(this.id, origin.addComment(comment));
+    }
     
 }

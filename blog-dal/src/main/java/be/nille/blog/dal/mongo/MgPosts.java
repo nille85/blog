@@ -6,6 +6,7 @@
 package be.nille.blog.dal.mongo;
 
 
+import be.nille.blog.dal.Comment;
 import be.nille.blog.dal.DPost;
 import be.nille.blog.dal.Post;
 import be.nille.blog.dal.Posts;
@@ -98,5 +99,7 @@ public class MgPosts implements Posts{
                 .append("lead", post.getLead())
                 .append("comments", post.getComments());
     }
+
+    
        
 }

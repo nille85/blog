@@ -8,7 +8,6 @@ package be.nille.blog.dal;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
-import org.bson.Document;
 
 /**
  *
@@ -43,6 +42,14 @@ public class DPost implements Post{
     @Override
     public List<Comment> getComments() {
         return comments;
+    }
+
+    @Override
+    public Post addComment(Comment comment) {
+        //defensive copy is necessary here
+        List<Comment> updatedComments = new ArrayList<>(this.comments);
+        updatedComments.add(comment);
+        return new DPost(this.title, this.lead, updatedComments);
     }
     
 }
