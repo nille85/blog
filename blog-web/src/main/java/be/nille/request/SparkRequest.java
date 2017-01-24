@@ -5,16 +5,13 @@
  */
 package be.nille.request;
 
-import java.util.Optional;
-
 /**
  *
  * @author nholvoet
  */
-public interface RequestBody {
+public interface SparkRequest<T> {
     
-    Optional<String> getFirstValueOf(final String key);
     
-    Optional<String[]> getAllValuesOf(final String key);
+    T populateObject(T object);
     
 }

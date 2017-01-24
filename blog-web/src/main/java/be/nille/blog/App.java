@@ -6,6 +6,8 @@ import be.nille.blog.component.post.PostCommentRequest;
 import be.nille.blog.component.post.PostPage;
 import be.nille.blog.config.ServerPort;
 import be.nille.blog.config.SimpleServerPort;
+import be.nille.request.SparkRequestBody;
+import be.nille.request.SparkRequest;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
@@ -72,8 +74,11 @@ public class App {
                
 
         service.post("posts/:id", (request, response) -> {
-            PostCommentRequest pcr = new PostCommentRequest(request);
-            return pcr.getPostId() + ":" + pcr.getCommentAuthor() + ":" + pcr.getCommentText();
+            SparkRequest<PostCommentRequest> req = new SparkRequestBody(request);
+            PostCommentRequest pcr = req.populateObject(new PostCommentRequest());
+            
+    
+            return pcr.getId() + ":" + pcr.getAuthor() + ":" + pcr.getComment();
         });
 
         service.before("/protected/*", (request, response) -> {
