@@ -2,6 +2,7 @@ package be.nille.blog;
 
 import be.nille.blog.component.Page;
 import be.nille.blog.component.home.HomePage;
+import be.nille.blog.component.login.LoginTemplate;
 import be.nille.blog.component.post.PostCommentRequest;
 import be.nille.blog.component.post.PostPage;
 import be.nille.blog.config.ServerPort;
@@ -80,10 +81,18 @@ public class App {
     
             return pcr.getId() + ":" + pcr.getAuthor() + ":" + pcr.getComment();
         });
+        
+        
+        service.get("/login", (request, response) -> {
+            return new LoginTemplate().render();
+        });
 
         service.before("/protected/*", (request, response) -> {
-            // ... check if authenticated
-            halt(401, "Go Away!");
+            /*
+            if not authenticated redirect to login
+            */
+           
+            response.redirect("/login");
         });
 
         service.exception(RuntimeException.class, (exception, request, response) -> {

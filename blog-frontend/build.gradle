@@ -1,0 +1,64 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+                
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+// Apply the application plugin to add support for building an application
+apply plugin: 'application'
+
+jar {
+	baseName = 'demo'
+	version = '0.0.1-SNAPSHOT'
+       
+}
+
+mainClassName = 'be.nille.boot.DemoApplication'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+        jcenter()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+        compile "org.springframework.boot:spring-boot-devtools" 
+        compile "org.jtwig:jtwig-spring-boot-starter:5.63"
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+        compile project(':blog-dal')
+}
+
+
+/*
+version = '1.0.0-SNAPSHOT'
+// Define the main class for the application
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Demo',
+        	'Implementation-Version': version,
+        	'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task stage(dependsOn: ['fatJar', 'clean'])
+fatJar.mustRunAfter clean
+*/
