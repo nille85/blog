@@ -18,12 +18,14 @@ apply plugin: 'application'
 
 jar {
 	baseName = 'demo'
-	version = '0.0.1-SNAPSHOT'
+	version = '1.0.0-SNAPSHOT'
        
 }
 
+
 mainClassName = 'be.nille.boot.DemoApplication'
-sourceCompatibility = 1.8
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
@@ -40,25 +42,5 @@ dependencies {
 }
 
 
-/*
-version = '1.0.0-SNAPSHOT'
-// Define the main class for the application
-
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
-//create a single Jar with all dependencies
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'Demo',
-        	'Implementation-Version': version,
-        	'Main-Class': mainClassName
-    }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task stage(dependsOn: ['fatJar', 'clean'])
-fatJar.mustRunAfter clean
-*/
+task stage(dependsOn: ['clean', 'build'])
+build.mustRunAfter clean
