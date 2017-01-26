@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.dal.mongo.morphia.model;
+package be.nille.blog.dal;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import lombok.Getter;
 import lombok.ToString;
 import org.bson.types.ObjectId;
@@ -28,32 +29,45 @@ import org.mongodb.morphia.annotations.Reference;
 )
 @Getter
 @ToString
-public class MgPost {
+public class Post {
 
     @Id
     private ObjectId id;
 
     @Reference
-    private MgUser author;
+    private Author author;
 
     @Embedded
     private Content content;
 
     @Reference
-    private MgCategory category;
+    private Category category;
 
     @Embedded
     private List<Comment> comments;
+    
+    private Status status;
+    
+    private final Date createdDate;
 
-    public MgPost() {
-        this.comments = new ArrayList<>();
+    /*
+    *For Morphia
+    */
+    public Post() {
+        this(null,null,null);
     }
 
-    public MgPost(final MgCategory category, final MgUser author, final Content content) {
+    public Post(final Category category, final Author author, final Content content) {
         this.content = content;
         this.comments = new ArrayList<>();
         this.author = author;
         this.category = category;
+        this.status = Status.DRAFT;
+        this.createdDate = new Date();
+    }
+    
+    public void publish(){
+        this.status = Status.PUBLISHED;
     }
 
     public void addComment(Comment comment) {
@@ -84,16 +98,20 @@ public class MgPost {
     public static class Content {
 
         private String title;
-        private String lead;
+        private String text;
 
         public Content() {
         }
 
-        public Content(final String title, final String lead) {
+        public Content(final String title, final String text) {
             this.title = title;
-            this.lead = lead;
+            this.text = text;
         }
 
+    }
+    
+    public static enum Status {
+        DRAFT, PUBLISHED
     }
 
 }

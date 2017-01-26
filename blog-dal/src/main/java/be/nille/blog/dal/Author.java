@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.dal.mongo.morphia.model;
+package be.nille.blog.dal;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -15,21 +15,36 @@ import org.mongodb.morphia.annotations.Id;
  *
  * @author Niels Holvoet
  */
-@Entity("user")
+@Entity("author")
 @Getter
 @ToString
-public class MgUser {
+public class Author {
     
     @Id
     private ObjectId id;
     private String email;
-    private String password;
+    private Name name;
     
-    public MgUser(){}
+    public Author(){}
     
-    public MgUser(final String email, final String password){
+    public Author(final String email, final Name name){
         this.email = email;
-        this.password = password;
+        this.name = name;
+    }
+    
+    @Getter
+    @ToString
+    public static class Name{
+        
+        private String first;
+        private String last;
+        
+        public Name(){}
+        
+        public Name(final String first, final String last){
+            this.first = first;
+            this.last = last;
+        }
     }
     
 }

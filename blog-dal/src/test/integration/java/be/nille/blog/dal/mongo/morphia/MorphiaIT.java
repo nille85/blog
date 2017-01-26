@@ -5,23 +5,16 @@
  */
 package be.nille.blog.dal.mongo.morphia;
 
-import be.nille.blog.dal.mongo.morphia.model.MgPost.Comment;
-import be.nille.blog.dal.mongo.morphia.model.MgCategory;
-import be.nille.blog.dal.mongo.morphia.model.MgUser;
-import be.nille.blog.dal.mongo.morphia.model.MgPost;
-import be.nille.blog.dal.mongo.morphia.model.MgPost.Content;
-import be.nille.blog.dal.service.Category;
-import be.nille.blog.dal.service.CategoryRepository;
-import be.nille.blog.dal.service.mongo.CategoryMapper;
-import be.nille.blog.dal.service.mongo.MgCategoryRepository;
-import be.nille.blog.dal.service.mongo.MgRepository;
 
+import be.nille.blog.dal.Author;
+import be.nille.blog.dal.Author.Name;
+import be.nille.blog.dal.Category;
+import be.nille.blog.dal.Post;
+import be.nille.blog.dal.Post.Content;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 
 /**
@@ -40,43 +33,20 @@ public class MorphiaIT {
         
         
         DatastoreFactory factory = new DatastoreFactory();
-        Datastore datastore = factory.createDataStore(client, "openid-connect");
-       
-        
-        /*
-        MgUser user = new MgUser("johndoe@mail.be", "password");
-        datastore.save(user);
-                */
-        
+        Datastore dataStore = factory.createDataStore(client, "openid-connect");
       
+        Author author = new Author("johndoe@test.bl", new Name("john","doe"));
+        dataStore.save(author);
         
-        CategoryRepository service = new MgCategoryRepository(datastore);
-        Category category = service.add(new Category("Amazon WSD"));
-        log.debug(category.toString());
+        Category category = new Category("MongoDB");
+        dataStore.save(category);
         
-        service.remove(category);
-        
-        
-        
-        
-        /*
-        for(int i=1;i<=10;i++){
-            MgPost post = new MgPost(category, user, new Content("Blog post " + i, "Lead text "));
-            datastore.save(post);
+        for(int i=1;i<=20;i++){
+            Post post = new Post(category, author, new Content("title " + i, "text " + i));
+            dataStore.save(post);
         }
         
-        List<MgPost> posts = datastore.find(MgPost.class).asList();
-        posts.stream().forEach((p) -> log.debug(p.toString()));
-        
-        MgPost post = posts.get(0);
-        post.addComment(new Comment("author","some comment about the blog post"));
-        datastore.save(post);
-        
-        posts = datastore.find(MgPost.class).asList();
-        posts.stream().forEach((p) -> log.debug(p.toString()));
-                */
-       
-        
+    
     }
 
 }

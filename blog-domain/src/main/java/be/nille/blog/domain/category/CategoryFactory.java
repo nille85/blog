@@ -1,4 +1,4 @@
-package be.nille.blog.domain;
+package be.nille.blog.domain.category;
 
 /**
  * Created by nholvoet on 26/01/2017.

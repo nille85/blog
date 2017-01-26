@@ -137,3 +137,4 @@ gradle-app.setting
 
 ### Shippable ###
 shippable/
+/.idea/

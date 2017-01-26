@@ -2,27 +2,28 @@
 {% block content %}
 <!-- Blog Post -->
 <!-- Title -->
-<h1>{{ post.title }}</h1>
 
-<!-- Author -->
-<p class="lead">
-    by <a href="#">Start Bootstrap</a>
-</p>
+    <!-- Title -->
+    <h1>{{post.content.title}}</h1>
 
-<hr>
+    <!-- Author -->
+    <p class="lead">
+        by <a href="#">{{post.author.name.first}} {{post.author.name.last}}</a>
+    </p>
 
-<!-- Date/Time -->
-<p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+    <hr>
 
+    <!-- Date/Time -->
+    <p><span class="glyphicon glyphicon-time"></span> {{post.createdDate}}</p>
 
-<hr>
+    <hr>
 
-<!-- Post Content -->
-<p class="lead">
-    {{ post.lead }}
-</p>
+    <!-- Post Content -->
+    <p class="lead">
+       {{post.content.text}}
+    </p>
 
-<hr>
+    <hr>
 
 <!-- Blog Comments -->
 
@@ -47,20 +48,18 @@
 <hr>
 
 <!-- Posted Comments -->
-
+{% for comment in post.comments %}
 <!-- Comment -->
 <div class="media">
-    <a class="pull-left" href="#">
-        <img class="media-object" src="http://placehold.it/64x64" alt="">
-    </a>
+   
     <div class="media-body">
-        <h4 class="media-heading">Start Bootstrap
+        <h4 class="media-heading">{{comment.author}}
             <small>August 25, 2014 at 9:30 PM</small>
         </h4>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+       {{comment.text}}
     </div>
 </div>
-
+{% endfor %}
 
 
 

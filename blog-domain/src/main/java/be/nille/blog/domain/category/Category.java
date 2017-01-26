@@ -3,31 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.dal.service;
+package be.nille.blog.domain.category;
 
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  *
  * @author Niels Holvoet
  */
 @Getter
-@ToString
-public class Category<K> extends DomainEntity<K> {
+public final class Category {
 
-    @Setter
-    private K id;
-    
-    private final String description; 
-    
-    public Category(String description){
+    private final String id;
+    private final String description;
+
+    public Category(final String id, final String description){
+        this.id = id;
         this.description = description;
     }
-    
-    
-    
-    
-    
 }

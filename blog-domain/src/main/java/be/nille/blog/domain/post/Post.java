@@ -1,10 +1,15 @@
-package be.nille.blog.domain;
+package be.nille.blog.domain.post;
 
+import be.nille.blog.domain.author.Author;
+import be.nille.blog.domain.author.Comment;
+import be.nille.blog.domain.author.Content;
+import be.nille.blog.domain.category.Category;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+
 
 /**
  * Created by nholvoet on 26/01/2017.

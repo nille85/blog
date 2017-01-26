@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.dal.service;
+package be.nille.boot;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author Niels Holvoet
- * @param <K> The unique key of a post object
  */
-public interface PostService<K> {
+@Getter
+@Setter
+public class AddCommentCommand {
     
-    void addCommentToPost(AddComment<K> comment);
-    
- 
-    
+    private String author;
+    private String comment;
 }

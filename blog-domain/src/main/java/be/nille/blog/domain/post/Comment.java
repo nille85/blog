@@ -1,4 +1,4 @@
-package be.nille.blog.domain;
+package be.nille.blog.domain.author;
 
 import lombok.Getter;
 

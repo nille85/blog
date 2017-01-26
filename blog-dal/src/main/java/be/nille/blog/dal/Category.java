@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.dal.mongo.morphia.model;
+package be.nille.blog.dal;
 
 
 
@@ -20,7 +20,7 @@ import org.mongodb.morphia.annotations.Id;
 @Entity("category")
 @Getter
 @ToString
-public class MgCategory{
+public class Category{
     
     @Id
     private ObjectId id;
@@ -28,9 +28,9 @@ public class MgCategory{
     private String description;
     
     
-    public MgCategory(){}
+    public Category(){}
     
-    public MgCategory(final String description){
+    public Category(final String description){
         this.description = description;
     }
     
