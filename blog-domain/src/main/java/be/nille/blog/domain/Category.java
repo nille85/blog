@@ -8,9 +8,11 @@ import lombok.Getter;
 @Getter
 public final class Category {
 
-    private final String title;
+    private final String id;
+    private final String description;
 
-    Category(final String title){
-        this.title = title;
+    public Category(final String id, final String description){
+        this.id = id;
+        this.description = description;
     }
 }
