@@ -9,18 +9,24 @@ import lombok.Getter;
 public final class PageInfo {
 
     private final int pageNumber;
-    private final int numberOfPostsInPage;
+    private final int numberOfItemsInPage;
     private final long totalItems;
 
-    public PageInfo(final int pageNumber, final int numberOfPostsInPage, final long totalItems){
+
+    public PageInfo(final long totalItems){
+
+        this(1,10,totalItems);
+    }
+
+    public PageInfo(final int pageNumber, final int numberOfItemsInPage, final long totalItems){
         this.pageNumber = pageNumber;
-        this.numberOfPostsInPage = numberOfPostsInPage;
+        this. numberOfItemsInPage = numberOfItemsInPage;
         this.totalItems = totalItems;
     }
 
 
     public int getNumberOfPages(){
-        return (int) Math.ceil(totalItems / numberOfPostsInPage);
+        return (int) Math.ceil(totalItems /  (float) numberOfItemsInPage);
     }
 
 
@@ -29,19 +35,19 @@ public final class PageInfo {
     }
 
     public boolean hasPrevious(){
-        return pageNumber > 0;
+        return pageNumber > 1;
     }
 
     public PageInfo next(){
         if(hasNext()){
-            return new PageInfo(pageNumber + 1, this.numberOfPostsInPage, this.totalItems);
+            return new PageInfo(pageNumber + 1, this. numberOfItemsInPage, this.totalItems);
         }
         return this;
     }
 
     public PageInfo previous(){
         if(hasPrevious()){
-            return new PageInfo(pageNumber - 1, this.numberOfPostsInPage, this.totalItems);
+            return new PageInfo(pageNumber - 1, this. numberOfItemsInPage, this.totalItems);
         }
         return this;
     }

@@ -37,7 +37,7 @@ public class HomeController {
     
     @RequestMapping("/")
     public String indexAction (ModelMap model) {
-        PageInfo pageInfo = new PageInfo(0,10,postService.getNumberOfPosts());
+        PageInfo pageInfo = new PageInfo(postService.getNumberOfPosts());
         final HomePage homePage = new HomePage(categoryService,postService, pageInfo);
         model.put("page", homePage);
         return "index";
