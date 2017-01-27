@@ -1,6 +1,7 @@
 package be.nille.blog.service;
 
 import be.nille.blog.dal.Post;
+import be.nille.blog.page.PageInfo;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,14 @@ public class PostService {
         return posts;
     }
 
-    public List<Post> findByOffsetAndLimit(final int offset, final int limit){
+    public List<Post> findByOffsetAndLimit(final PageInfo pageInfo){
+
+        final int pageNumberForMongo = pageInfo.getPageNumber() -1;
+        final int numberOfPostsInPage = pageInfo.getNumberOfItemsInPage();
+        final int offset = pageNumberForMongo * numberOfPostsInPage;
+        final int limit = offset + numberOfPostsInPage;
+
+
         List<Post> posts = dataStore.createQuery(Post.class)
                 .offset(offset)
                 .limit(limit)
@@ -41,7 +49,20 @@ public class PostService {
                 .asList();
     }
 
+    public Post findPostById(final String postId){
+        Post post = dataStore.get(Post.class, new ObjectId(postId));
+        return post;
+    }
+
     public long getNumberOfPosts(){
         return dataStore.createQuery(Post.class).countAll();
+    }
+
+    public Post addCommentToPostWithId(Post.Comment comment, final String postId){
+        Post post = dataStore.get(Post.class, new ObjectId(postId));
+        post.addComment(comment);
+        dataStore.save(post);
+        post = dataStore.get(Post.class, new ObjectId(postId));
+        return post;
     }
  }

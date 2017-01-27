@@ -27,11 +27,7 @@ public final class HomePage {
     }
 
     public List<Post> getPosts(){
-        final int pageNumber = pageInfo.getPageNumber();
-        final int numberOfPostsInPage = pageInfo.getNumberOfItemsInPage();
-        final int offset = pageNumber * numberOfPostsInPage;
-        final int limit = offset + numberOfPostsInPage;
-        return postService.findByOffsetAndLimit(offset, limit);
+        return postService.findByOffsetAndLimit(pageInfo);
     }
 
     public List<Category> getCategories(){

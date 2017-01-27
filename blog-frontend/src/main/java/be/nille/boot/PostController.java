@@ -8,6 +8,8 @@ package be.nille.boot;
 import be.nille.blog.dal.Post;
 import be.nille.blog.dal.Post.Comment;
 import java.util.List;
+
+import be.nille.blog.service.PostService;
 import org.bson.types.ObjectId;
 
 import org.mongodb.morphia.Datastore;
@@ -27,26 +29,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PostController {
     
-    private final Datastore dataStore;
+    private final PostService postService;
     
     @Autowired
-    public PostController(final Datastore dataStore){
-        this.dataStore = dataStore;
+    public PostController(final PostService postService){
+        this.postService = postService;
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/posts/{postId}")
     public String postDetailAction (ModelMap model, @PathVariable(name = "postId") final String postId) {
-        Post post = dataStore.get(Post.class, new ObjectId(postId));
+        Post post = postService.findPostById(postId);
         model.put("post", post);
         return "post";
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/posts/{postId}")
     public String postCommentAction (ModelMap model, @PathVariable(name = "postId") final String postId, @ModelAttribute AddCommentCommand addComment) {
-        Post post = dataStore.get(Post.class, new ObjectId(postId));
-        post.addComment(new Comment(addComment.getAuthor(), addComment.getComment()));
-        dataStore.save(post);
-        post = dataStore.get(Post.class, new ObjectId(postId));
+
+        Post post = postService.addCommentToPostWithId
+                (new Comment(addComment.getAuthor(), addComment.getComment()), postId);
         model.put("post", post);
         return "post";
     }
