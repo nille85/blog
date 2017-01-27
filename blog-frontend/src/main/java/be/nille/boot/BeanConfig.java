@@ -30,7 +30,8 @@ public class BeanConfig {
             Datastore dataStore = factory.createDataStore(client, "openid-connect");
             return dataStore;
         } catch (RuntimeException ex) {
-            throw new RuntimeException("Could not connect to Mongo Database", ex);
+            //throw new RuntimeException("Could not connect to Mongo Database", ex);
+            return null;
         }
 
     }

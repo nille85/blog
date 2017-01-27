@@ -21,4 +21,26 @@ $(document).ready(function() {
       form.submit();
     }
   });
+
+
+  $("form[name='signinForm']").validate({
+      // Specify validation rules
+      rules: {
+        // The key name on the left side is the name attribute
+        // of an input field. Validation rules are defined
+        // on the right side
+        email: "required",
+        password: "required"
+      },
+      // Specify validation error messages
+      messages: {
+        email: "Email is required and cannot be empty",
+        password: "Password is required and cannot be empty"
+      },
+      // Make sure the form is submitted to the destination defined
+      // in the "action" attribute of the form when valid
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
 });
