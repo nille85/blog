@@ -29,4 +29,13 @@
 
 {% endfor %}
 
+        <ul class="pager">
+            {% if page.pageInfo.hasPrevious() %}
+            <li class="previous"><a href="/page/{{page.pageInfo.pageNumber - 1}}">Previous</a></li>
+            {% endif %}
+            {% if page.pageInfo.hasNext() %}
+            <li class="next"><a href="/page/{{page.pageInfo.pageNumber + 1}">Next</a></li>
+            {% endif %}
+        </ul>
+
 {% endblock %}
