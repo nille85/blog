@@ -2,7 +2,7 @@
 {% block content %}
 
 
-{% for post in posts %}
+{% for post in page.posts %}
 
     <!-- Title -->
     <h1><a href="/posts/{{post.id}}">{{post.content.title}}</a></h1>

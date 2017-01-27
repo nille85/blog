@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class})
-@ComponentScan(basePackages = "be.nille.boot")
+@ComponentScan(basePackages = {"be.nille.boot","be.nille.blog"})
 public class DemoApplication {
 
 	public static void main(String[] args) {
