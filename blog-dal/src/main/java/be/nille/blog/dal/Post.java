@@ -71,7 +71,7 @@ public class Post {
     }
 
     public void addComment(Comment comment) {
-        comments.add(comment);
+        comments.add(0,comment);
     }
 
     @Getter
@@ -79,8 +79,10 @@ public class Post {
     @Embedded
     public static class Comment {
 
+        
         private String author;
         private String text;
+        private Date createdDate;
 
         public Comment() {
         }
@@ -88,7 +90,10 @@ public class Post {
         public Comment(final String author, final String text) {
             this.text = text;
             this.author = author;
+            this.createdDate = new Date();
         }
+
+       
 
     }
 

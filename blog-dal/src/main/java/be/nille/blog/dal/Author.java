@@ -18,17 +18,19 @@ import org.mongodb.morphia.annotations.Id;
 @Entity("author")
 @Getter
 @ToString
-public class Author {
+public class Author  {
     
     @Id
     private ObjectId id;
     private String email;
+    private String password;
     private Name name;
     
     public Author(){}
     
-    public Author(final String email, final Name name){
+    public Author(final String email, final String password, final Name name){
         this.email = email;
+        this.password = password;
         this.name = name;
     }
     

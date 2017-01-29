@@ -27,7 +27,10 @@ public final class PostDetailPage extends BlogPage {
     }
 
     public Post getPost(){
-        Post post = postService.findPostById(postId);
+        Post post = postService.findPostById(postId)
+                .orElseThrow(() -> new RuntimeException(
+                        String.format("Post with id %s could not be found",postId))
+        );
         return post;
     }
     

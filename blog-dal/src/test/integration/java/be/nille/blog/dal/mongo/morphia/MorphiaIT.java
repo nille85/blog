@@ -13,9 +13,16 @@ import be.nille.blog.dal.Post;
 import be.nille.blog.dal.Post.Content;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import java.util.Iterator;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.mongodb.morphia.Datastore;
+import static org.mongodb.morphia.aggregation.Group.grouping;
+import static org.mongodb.morphia.aggregation.Group.push;
+import org.mongodb.morphia.aggregation.Sort;
+import org.mongodb.morphia.query.Query;
 
 /**
  *
@@ -23,6 +30,34 @@ import org.mongodb.morphia.Datastore;
  */
 @Slf4j
 public class MorphiaIT {
+    
+    
+    @Test
+    public void testAggregation(){
+        final String url = System.getenv("MONGO_URL");
+        MongoClient client = new MongoClient(
+                new MongoClientURI(url)
+        );
+        
+        
+        DatastoreFactory factory = new DatastoreFactory();
+        Datastore dataStore = factory.createDataStore(client, "openid-connect");
+        
+        Query query = dataStore.createQuery(Post.class)
+                .filter("$id", new ObjectId("588a4b37a3f9dc540c6ed3c8"));
+        
+        Iterator<Post> posts = dataStore.createAggregation(Post.class)
+                .unwind("comments")
+                .match(query)
+                .sort(Sort.descending("comments.createdDate"))
+                //.group("id", grouping("comments", push("comments")))
+                
+                .aggregate(Post.class);
+        
+        posts.forEachRemaining(p -> log.debug(p.toString()));
+        
+    }
+    
 
     @Ignore
     public void test() {
@@ -35,7 +70,7 @@ public class MorphiaIT {
         DatastoreFactory factory = new DatastoreFactory();
         Datastore dataStore = factory.createDataStore(client, "openid-connect");
       
-        Author author = new Author("johndoe@test.bl", new Name("john","doe"));
+        Author author = new Author("johndoe@test.bl", "password", new Name("john","doe"));
         dataStore.save(author);
         
         Category category = new Category("MongoDB");

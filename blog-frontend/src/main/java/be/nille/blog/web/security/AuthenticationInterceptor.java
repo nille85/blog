@@ -1,4 +1,4 @@
-package be.nille.blog.web;
+package be.nille.blog.web.security;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
+    
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
