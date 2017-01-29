@@ -13,26 +13,22 @@ import java.util.List;
 /**
  * Created by nholvoet on 27/01/2017.
  */
-public final class HomePage {
+public final class HomePage extends BlogPage {
 
-    private final CategoryService categoryService;
+   
     private final PostService postService;
     @Getter
     private final PageInfo pageInfo;
 
 
     public HomePage(final CategoryService categoryService, final PostService postService, final PageInfo pageInfo){
-        this.categoryService = categoryService;
+        super(categoryService);
         this.postService = postService;
         this.pageInfo = pageInfo;
     }
 
     public List<Post> getPosts(){
         return postService.findByOffsetAndLimit(pageInfo);
-    }
-
-    public List<Category> getCategories(){
-        return categoryService.findAll();
     }
 
 }

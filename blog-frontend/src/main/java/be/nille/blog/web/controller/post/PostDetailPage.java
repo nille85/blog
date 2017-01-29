@@ -12,27 +12,23 @@ import java.util.List;
 /**
  * Created by nholvoet on 27/01/2017.
  */
-public final class PostDetailPage {
+public final class PostDetailPage extends BlogPage {
 
-    private final CategoryService categoryService;
+    
     private final PostService postService;
     final String postId;
    
 
     public PostDetailPage(final CategoryService categoryService, final PostService postService, final String postId){
-        this.categoryService = categoryService;
+        super(categoryService);
         this.postService = postService;
         this.postId = postId;
-       
+    
     }
 
     public Post getPost(){
         Post post = postService.findPostById(postId);
         return post;
-    }
-
-    public List<Category> getCategories(){
-        return categoryService.findAll();
     }
     
     public Post addComment(final Comment comment){
