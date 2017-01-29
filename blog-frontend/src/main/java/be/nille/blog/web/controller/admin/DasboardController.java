@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.boot;
+package be.nille.blog.web.controller.admin;
 
 
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author nholvoet
  */
 @Controller
-public class AuthenticationController {
+public class DasboardController {
 
-    public AuthenticationController(){
+    public DasboardController(){
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/admin/login")
-    public String showLogin () {
+    @RequestMapping(method = RequestMethod.GET, value = "/protected/dashboard")
+    public String showDashboard () {
 
-        return "admin/login";
+        return "admin/dashboard";
     }
     
 

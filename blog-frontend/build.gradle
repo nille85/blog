@@ -23,7 +23,7 @@ jar {
 }
 
 
-mainClassName = 'be.nille.boot.DemoApplication'
+mainClassName = 'be.nille.blog.web.Application'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 

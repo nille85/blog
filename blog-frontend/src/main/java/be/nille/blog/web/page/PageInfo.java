@@ -1,4 +1,4 @@
-package be.nille.blog.page;
+package be.nille.blog.web.page;
 
 import lombok.Getter;
 

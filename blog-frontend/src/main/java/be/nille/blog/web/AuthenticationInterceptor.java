@@ -1,4 +1,4 @@
-package be.nille.boot;
+package be.nille.blog.web;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

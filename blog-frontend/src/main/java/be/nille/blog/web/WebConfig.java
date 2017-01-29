@@ -1,4 +1,4 @@
-package be.nille.boot;
+package be.nille.blog.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

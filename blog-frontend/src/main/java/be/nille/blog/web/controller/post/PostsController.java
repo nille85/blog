@@ -3,34 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.boot;
+package be.nille.blog.web.controller.post;
 
+import be.nille.blog.web.controller.post.AddCommentCommand;
 import be.nille.blog.dal.Post;
 import java.util.List;
 
-import be.nille.blog.page.HomePage;
-import be.nille.blog.page.PageInfo;
+import be.nille.blog.web.page.PageInfo;
 import be.nille.blog.service.CategoryService;
 import be.nille.blog.service.PostService;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
  * @author nholvoet
  */
 @Controller
-public class HomeController {
+public class PostsController {
     
     private final CategoryService categoryService;
     private final PostService postService;
     
     @Autowired
-    public HomeController(final CategoryService categoryService, final PostService postService){
+    public PostsController(final CategoryService categoryService, final PostService postService){
         this.categoryService = categoryService;
         this.postService = postService;
     }
@@ -40,7 +42,7 @@ public class HomeController {
         PageInfo pageInfo = new PageInfo(postService.getNumberOfPosts());
         final HomePage homePage = new HomePage(categoryService,postService, pageInfo);
         model.put("page", homePage);
-        return "index";
+        return "blog/index";
     }
 
     @RequestMapping("/page/{pageId}")
@@ -48,7 +50,22 @@ public class HomeController {
         PageInfo pageInfo = new PageInfo(pageId,10,postService.getNumberOfPosts());
         final HomePage homePage = new HomePage(categoryService,postService, pageInfo);
         model.put("page", homePage);
-        return "index";
+        return "blog/index";
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/{postId}")
+    public String postDetailAction (ModelMap model, @PathVariable(name = "postId") final String postId) {
+        final PostDetailPage page = new PostDetailPage(categoryService, postService, postId);
+        model.put("page", page);
+        return "blog/post";
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/posts/{postId}")
+    public String postCommentAction (ModelMap model, @PathVariable(name = "postId") final String postId, @ModelAttribute AddCommentCommand addComment) {
+        final PostDetailPage page = new PostDetailPage(categoryService, postService, postId);
+        page.addComment(new Post.Comment(addComment.getAuthor(), addComment.getComment()));
+        model.put("page", page);
+        return "blog/post";
     }
     
 }

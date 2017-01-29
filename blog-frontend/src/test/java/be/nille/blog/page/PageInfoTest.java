@@ -1,5 +1,6 @@
 package be.nille.blog.page;
 
+import be.nille.blog.web.page.PageInfo;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

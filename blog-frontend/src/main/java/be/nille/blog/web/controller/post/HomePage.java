@@ -1,9 +1,10 @@
-package be.nille.blog.page;
+package be.nille.blog.web.controller.post;
 
 import be.nille.blog.dal.Category;
 import be.nille.blog.dal.Post;
 import be.nille.blog.service.CategoryService;
 import be.nille.blog.service.PostService;
+import be.nille.blog.web.page.PageInfo;
 import lombok.Getter;
 
 import java.util.List;
