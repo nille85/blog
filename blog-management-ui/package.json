@@ -9,10 +9,11 @@
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
+    /*"gulp-concat": "^2.6.1",
     "gulp-filter": "^5.0.0",
     "gulp-load-plugins": "^1.4.0",
     "gulp-uglify": "^2.0.1",
+    */
     "main-bower-files": "^2.13.1"
   }
 }

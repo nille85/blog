@@ -1,42 +1,35 @@
-// Include Gulp
 var gulp = require('gulp');
 
-// Include plugins
-var plugins = require("gulp-load-plugins")({
-	pattern: ['gulp-*', 'gulp.*', 'main-bower-files'],
-	replaceString: /\bgulp[\-.]/
+
+var paths = {
+ scripts: ['src/**/*.js','!src/**/*test.js'],
+ html: ['src/**/*.html'],
+ bower: ['bower_components/**/*.js', 'bower_components/**/*.css'], 
+ dist: 'dist/'
+};
+
+gulp.task('default', ['build'], function(){
+	console.log('Build is finished ...');
 });
 
-// Define default destination folder
-var dest = 'src/public/';
+gulp.task('build', ['clean'], function(){
 
-gulp.task('js', function() {
+	var stream = gulp.src(paths.scripts.concat(paths.html))
+ 		.pipe(gulp.dest(paths.dist));
+ 	
+ 	return stream.on('end', function() {
+    	//run some code here
+    	return gulp.src(paths.bower)
+  		.pipe(gulp.dest(paths.dist + 'public/vendor/'))
+  	});
 
-	var jsFiles = ['js/*'];
-
-	plugins.mainBowerFiles().forEach(function(file){
-		console.log(file);
-	});
-
-
-	gulp.src(plugins.mainBowerFiles().concat(jsFiles))
-		
-		
-		
-		.pipe(gulp.dest(dest + 'js'));
-
+  	
 });
 
-gulp.task('css', function() {
 
-	var cssFiles = ['css/*'];
+var clean = require('gulp-clean');
 
-	gulp.src(plugins.mainBowerFiles().concat(cssFiles))
-		
-	
-		.pipe(gulp.dest(dest + 'css'));
-
+gulp.task('clean',function(){
+	 return gulp.src('dist',{force: true})
+        .pipe(clean());
 });
-
-// Default Task
-gulp.task('build', ['js','css']);

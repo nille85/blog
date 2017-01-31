@@ -2,4 +2,7 @@
 /node_modules
 
 #Bower
-/src/public
+/bower_components
+
+#Gulp build directory
+/dist
