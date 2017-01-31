@@ -1,0 +1,22 @@
+{
+  "name": "blog-management-ui",
+  "homepage": "www.nille.be",
+  "authors": [
+    "nille85 <niels.holvoet@gmail.com>"
+  ],
+  "description": "UI for the management of a blog",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.6.1",
+    "bootstrap": "~3.3.7",
+    "angular-route": "~1.6.1"
+  }
+}
