@@ -17,6 +17,9 @@ integrations:
 
 
 build:
+  pre_ci:
+   - ./shippable-scripts/amazon-deploy.sh
+      
   ci:
    - gradle clean test
    
