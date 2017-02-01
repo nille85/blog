@@ -18,6 +18,7 @@ integrations:
 
 build:
   pre_ci:
+   - chmod +x shippable-scripts/amazon-deploy.sh
    - ./shippable-scripts/amazon-deploy.sh
       
   ci:
