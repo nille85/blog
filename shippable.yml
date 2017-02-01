@@ -12,6 +12,9 @@ integrations:
   key:
     - integrationName: Heroku
       type: ssh-key
+  key:
+    - integrationName: Amazon Nille
+      type: pem-key
 
 
 build:
