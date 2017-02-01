@@ -17,15 +17,13 @@ integrations:
 
 
 build:
-  pre_ci:
-   - chmod +x shippable-scripts/amazon-deploy.sh
-   - ./shippable-scripts/amazon-deploy.sh
-      
   ci:
    - gradle clean test
    
   on_success:
    - git push -f git@heroku.com:$APP_NAME.git master
+   - chmod +x shippable-scripts/amazon-deploy.sh
+   - ./shippable-scripts/amazon-deploy.sh
 
 notifications:
   email:
