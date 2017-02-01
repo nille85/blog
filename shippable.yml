@@ -9,13 +9,11 @@ env:
     - secure: b6wJ2X9ZQH6H6iOwewB/8QHmhBZKBmSJsihUKX/yW6qpc8K5/+yGpohUI0ahLGl0XtvIi0BSybcoWRCpczzLLy4xXY7NjwdiODo9NFAI6Ad2vP6xOMy/b05nDMxRjDJDT+cj0YRCp23C1L7eW6wmBifFEyst8sFtu7y819DAvhkbdaL+rW+qpSccyFChVRIvtoc5dfBqy/t6iyCotHozqZfSAlvss8IhpPVDF49yNS1yu8wcNXkCkmYjaD72CxpWFfaJyGMOQQ5+3CBmpmC3GnUomggWWfjN7jFrMLx3JXEbRuiQWiKp9JZiH9dM9Y7aErrmBD6Oxsg6tGpUE+JY7w==
 
 integrations:
-  keys:
-      key:
-        - integrationName: Heroku
-          type: ssh-key
-      key:
-        - integrationName: Amazon Nille
-          type: pem-key
+  key:
+      - integrationName: Heroku
+        type: ssh-key
+      - integrationName: Amazon Nille
+        type: pem-key
 
 
 build:
