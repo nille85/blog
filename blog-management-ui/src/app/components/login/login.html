@@ -9,6 +9,7 @@
         <div class="col-md-offset-3 col-md-6 col-md-offset-3">
                   <h1>Welcome Back!</h1>
                     <form role="form"  id="loginForm" name="loginForm" ng-submit="vm.login()" novalidate>
+
                         <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
                             <input type="email" data-ng-model="vm.credentials.email" name="email" id="email" class="form-control" placeholder="somebody@example.com" required>
@@ -17,7 +18,9 @@
                             <label for="key" class="sr-only">Password</label>
                             <input type="password" data-ng-model="vm.credentials.password" name="key" id="key" class="form-control" placeholder="Password" required>
                         </div>
-                        
+                        <div class="alert alert-danger" id="alertCredentials" data-ng-show="vm.error" role="alert">
+                            {{vm.error}}
+                        </div>
                         <input type="submit" id="btn-login" class="btn btn-primary btn-lg btn-block" value="Log in">
                     </form>
                   

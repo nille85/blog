@@ -19,6 +19,7 @@
     "angular-route": "~1.6.1"
   },
   "devDependencies": {
-    "ngstorage": "^0.3.11"
+    "ngstorage": "^0.3.11",
+    "angular-jwt": "^0.1.9"
   }
 }
