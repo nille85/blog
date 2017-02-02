@@ -12,7 +12,7 @@
     /<title>Nille.be Dashboard</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="public/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     
 
     <!-- Custom styles for this template -->
@@ -28,24 +28,29 @@
 
   <body ng-app="blog">
 
-    <a href="#/login">Login</a><br/>
-    <a href="#/overview">Overview</a><br/>
 
     <div ng-view=""></div>
  
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="public/vendor/jquery/dist/jquery.min.js"></script>-->
-    <!--<script src="public/vendor/bootstrap/dist/js/bootstrap.min.js"></script>-->
     <script src="public/vendor/angular/angular.min.js"></script>
     <script src="public/vendor/angular-route/angular-route.min.js"></script>
+    <script src="public/vendor/ngStorage/ngStorage.min.js"></script>
 
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!--Angular scripts-->
     <script src="app/app.module.js"></script>
-    <script src="app/login.controller.js"></script>
+    <!--Login component-->
+    <script src="app/components/login/login.controller.js"></script>
+    <script src="app/components/login/authentication.service.js"></script>
+
+    
     <script src="app/overview.controller.js"></script>
 
   </body>

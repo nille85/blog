@@ -4,8 +4,8 @@
    
   angular.module('blog').controller('LoginCtrl', LoginCtrl);
 
-  LoginCtrl.$inject = [];
-  function LoginCtrl() {
+  LoginCtrl.$inject = ['AuthenticationService','$log'];
+  function LoginCtrl(AuthenticationService, $log) {
     var vm = this;
     
     vm.login = login;  
@@ -15,7 +15,9 @@
      * PUBLIC METHODS
      */
     function login() {
-      alert("logging in");
+
+      $log.debug("credentials:", vm.credentials);
+
     }
 
 

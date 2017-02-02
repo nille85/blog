@@ -1,1 +1,53 @@
-ADD POST
+<div ng-include="'app/fragments/navigation_top.html'"></div>
+
+
+
+<div  ng-controller="AddPostCtrl as vm">
+ <div class="container-fluid">
+      <div class="row">
+        <!--Left column-->
+        <div ng-include="'app/fragments/navigation_left.html'"></div>
+
+        <!--Right column-->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+            <div class="row">
+                <div class="col-md-12">
+
+
+
+		 			<form>
+		            <div class="form-group">
+		              <label for="title">Title</label>
+		              <input type="title" class="form-control" id="title"  placeholder="Title">
+		            </div>
+		            
+		            
+		            <div class="form-group">
+		              <label for="exampleSelect2">Categories</label>
+		              <select class="form-control" id="exampleSelect2">
+		                <option>Databases</option>
+		                <option>Spring</option>
+		                <option>Software Architecture</option>
+		                <option>Design Patterns</option>
+		                <option>Security</option>
+		              </select>
+		              <button type="submit" class="btn btn-primary">Add New Category</button>
+		            </div>
+
+		            <div class="form-group">
+		              <label for="exampleTextarea">Text</label>
+		              <textarea class="form-control" id="exampleTextarea" rows="20"></textarea>
+		            </div>
+		             
+		            
+		            <button type="submit" class="btn btn-primary">Save</button>
+		            <button type="submit" class="btn btn-success">Publish</button>
+		            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		          </form>
+		      </div>
+		  </div>
+		</div>
+	</div>
+</div>
+</div>

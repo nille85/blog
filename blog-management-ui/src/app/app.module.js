@@ -1,6 +1,6 @@
  (function () {
  	'use strict';
-  	angular.module("blog", ['ngRoute'])
+  	angular.module("blog", ['ngRoute', 'ngStorage'])
   		   .config(routeProviderConfig)
   		   .run(authenticationRun);
 
@@ -13,7 +13,7 @@
 	        protected: true
 	      })
 	      .when('/login', {
-	        templateUrl: 'login.html',
+	        templateUrl: 'app/components/login/login.html',
 	        protected: false
 	      })
 	      .when('/posts/:postId', {
