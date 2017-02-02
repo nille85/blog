@@ -139,3 +139,6 @@ gradle-app.setting
 shippable/
 /.idea/
 
+
+### Vagrant ###
+.vagrant
