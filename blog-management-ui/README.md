@@ -1,12 +1,13 @@
 ##Bower
 
-bower install: installs vendor scripts in the folder src/public/vendor
+bower install: installs vendor scripts in the folder bower_components
 
 
 ##Gulp
 
 gulp build: creates dist folder with all assets
 
-gulp connect: starts web browser with application
+gulp connect: starts web browser with application on localhost:8888
 
-gulp 
+gulp watch: watches the src folder for changes and rebuilds after a change
+

@@ -1,3 +1,4 @@
+<div ng-controller="NavigationTopCtrl as vm">
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -11,8 +12,9 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Signout</a></li>
+        <li><a href="#" data-ng-click="vm.logOff()">Signout</a></li>
       </ul>
     </div>
   </div>
 </nav>
+</div>
