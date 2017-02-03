@@ -5,7 +5,8 @@
  */
 package be.nille.blog.web.controller.post;
 
-import be.nille.blog.dal.MgCategory;
+
+import be.nille.blog.service.Category;
 import be.nille.blog.service.CategoryService;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public abstract class BlogPage {
         this.categoryService = categoryService;
     }
     
-    public List<MgCategory> getCategories(){
+    public List<? extends Category> getCategories(){
         return categoryService.findAll();
     }
     

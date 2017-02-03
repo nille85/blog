@@ -1,10 +1,10 @@
 package be.nille.blog.web.controller.post;
 
-import be.nille.blog.dal.MgCategory;
-import be.nille.blog.dal.MgPost;
 import be.nille.blog.service.CategoryService;
+import be.nille.blog.service.PageInfo;
+import be.nille.blog.service.Post;
 import be.nille.blog.service.PostService;
-import be.nille.blog.web.page.PageInfo;
+
 import lombok.Getter;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public final class HomePage extends BlogPage {
         this.pageInfo = pageInfo;
     }
 
-    public List<MgPost> getPosts(){
+    public List<? extends Post> getPosts(){
         return postService.findByOffsetAndLimit(pageInfo);
     }
 

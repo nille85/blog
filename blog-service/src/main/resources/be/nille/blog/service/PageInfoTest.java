@@ -1,4 +1,4 @@
-package be.nille.blog.page;
+package be.nille.blog.service;
 
 import be.nille.blog.web.page.PageInfo;
 import org.junit.Test;

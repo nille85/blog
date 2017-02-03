@@ -8,6 +8,8 @@ package be.nille.blog.web;
 import be.nille.blog.dal.mongo.morphia.DatastoreFactory;
 import be.nille.blog.service.CategoryService;
 import be.nille.blog.service.PostService;
+import be.nille.blog.service.mongo.MgCategoryService;
+import be.nille.blog.service.mongo.MgPostService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import lombok.extern.slf4j.Slf4j;
@@ -45,12 +47,12 @@ public class BeanConfig {
     
     @Bean
     public CategoryService categoryService(){
-     return new CategoryService(dataStore());
+     return new MgCategoryService(dataStore());
     }
     
     @Bean
     public PostService postService(){
-     return new PostService(dataStore());
+     return new MgPostService(dataStore());
     }
 
 }

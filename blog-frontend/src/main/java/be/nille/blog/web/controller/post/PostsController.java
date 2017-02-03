@@ -7,8 +7,9 @@ package be.nille.blog.web.controller.post;
 
 import be.nille.blog.dal.MgPost;
 
-import be.nille.blog.web.page.PageInfo;
+
 import be.nille.blog.service.CategoryService;
+import be.nille.blog.service.PageInfo;
 import be.nille.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

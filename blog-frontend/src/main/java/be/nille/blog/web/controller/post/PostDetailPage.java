@@ -28,8 +28,8 @@ public final class PostDetailPage extends BlogPage {
     
     }
 
-    public MgPost getPost(){
-        MgPost post = postService.findPostById(postId)
+    public Post getPost(){
+        Post post = postService.findPostById(postId)
                 .orElseThrow(() -> new RuntimeException(
                         String.format("Post with id %s could not be found",postId))
         );
