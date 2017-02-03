@@ -5,14 +5,11 @@
  */
 package be.nille.blog.web.controller.post;
 
-import be.nille.blog.web.controller.post.AddCommentCommand;
-import be.nille.blog.dal.Post;
-import java.util.List;
+import be.nille.blog.dal.MgPost;
 
 import be.nille.blog.web.page.PageInfo;
 import be.nille.blog.service.CategoryService;
 import be.nille.blog.service.PostService;
-import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,7 +60,7 @@ public class PostsController {
     @RequestMapping(method = RequestMethod.POST, value = "/posts/{postId}")
     public String postCommentAction (ModelMap model, @PathVariable(name = "postId") final String postId, @ModelAttribute AddCommentCommand addComment) {
         final PostDetailPage page = new PostDetailPage(categoryService, postService, postId);
-        page.addComment(new Post.Comment(addComment.getAuthor(), addComment.getComment()));
+        page.addComment(new MgPost.MgComment(addComment.getAuthor(), addComment.getComment()));
         model.put("page", page);
         return "blog/post";
     }

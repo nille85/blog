@@ -1,6 +1,7 @@
-package be.nille.blog.service;
+package be.nille.blog.service.mongo;
 
 import be.nille.blog.dal.MgCategory;
+import be.nille.blog.service.CategoryService;
 import org.mongodb.morphia.Datastore;
 
 import java.util.List;
@@ -8,16 +9,17 @@ import java.util.List;
 /**
  * Created by nholvoet on 27/01/2017.
  */
-public class CategoryService {
+public class MgCategoryService implements CategoryService {
 
     private final Datastore dataStore;
 
    
-    public CategoryService(final Datastore dataStore){
+    public MgCategoryService(final Datastore dataStore){
         this.dataStore = dataStore;
     }
 
 
+    @Override
     public List<MgCategory> findAll(){
         List<MgCategory> categories = dataStore.createQuery(MgCategory.class).asList();
         return categories;

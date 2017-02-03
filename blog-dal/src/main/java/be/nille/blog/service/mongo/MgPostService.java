@@ -1,36 +1,39 @@
-package be.nille.blog.service;
+package be.nille.blog.service.mongo;
 
+import be.nille.blog.service.PageInfo;
 import be.nille.blog.dal.MgPost;
-import be.nille.blog.web.page.PageInfo;
-import com.mongodb.client.model.Sorts;
+import be.nille.blog.service.Post;
+import be.nille.blog.service.Post.Comment;
+
+import be.nille.blog.service.PostService;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
 import java.util.List;
 import java.util.Optional;
-import static org.mongodb.morphia.aggregation.Group.grouping;
-import static org.mongodb.morphia.aggregation.Group.push;
-import org.mongodb.morphia.aggregation.Sort;
 
 /**
  * Created by nholvoet on 27/01/2017.
  */
-public class PostService {
+public class MgPostService implements PostService {
 
     private final Datastore dataStore;
 
    
-    public PostService(final Datastore dataStore){
+    public MgPostService(final Datastore dataStore){
         this.dataStore = dataStore;
     }
 
 
+    @Override
     public List<MgPost> findAll(){
         List<MgPost> posts = dataStore.createQuery(MgPost.class)
                 .order("-createdDate").asList();
         return posts;
     }
 
+    @Override
     public List<MgPost> findByOffsetAndLimit(final PageInfo pageInfo){
 
         final int pageNumberForMongo = pageInfo.getPageNumber() -1;
@@ -46,12 +49,14 @@ public class PostService {
         return posts;
     }
 
+    @Override
     public List<MgPost> findPostsByCategory(final String categoryId){
         return dataStore.createQuery(MgPost.class)
                 .filter("category.$id",new ObjectId(categoryId))
                 .asList();
     }
 
+    @Override
     public Optional<MgPost> findPostById(final String postId){
         
         List<MgPost> posts = dataStore.createQuery(MgPost.class)
@@ -64,20 +69,22 @@ public class PostService {
         return Optional.empty();
     }
 
+    @Override
     public long getNumberOfPosts(){
         return dataStore.createQuery(MgPost.class).countAll();
     }
 
-    public MgPost addCommentToPostWithId(MgPost.Comment comment, final String postId){
-        
-        
+
+    @Override
+    public Post addCommentToPostWithId(Comment comment, String postId) {
         MgPost post = dataStore.get(MgPost.class, new ObjectId(postId));
-        
-        
+           
         
         post.addComment(comment);
         dataStore.save(post);
         post = dataStore.get(MgPost.class, new ObjectId(postId));
         return post;
     }
+
+    
  }

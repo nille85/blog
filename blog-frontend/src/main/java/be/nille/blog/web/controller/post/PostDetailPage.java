@@ -1,12 +1,14 @@
 package be.nille.blog.web.controller.post;
 
-import be.nille.blog.dal.Category;
-import be.nille.blog.dal.Post;
-import be.nille.blog.dal.Post.Comment;
+
+import be.nille.blog.dal.MgPost;
+
 import be.nille.blog.service.CategoryService;
+import be.nille.blog.service.Post;
+import be.nille.blog.service.Post.Comment;
 import be.nille.blog.service.PostService;
 
-import java.util.List;
+
 
 
 /**
@@ -26,8 +28,8 @@ public final class PostDetailPage extends BlogPage {
     
     }
 
-    public Post getPost(){
-        Post post = postService.findPostById(postId)
+    public MgPost getPost(){
+        MgPost post = postService.findPostById(postId)
                 .orElseThrow(() -> new RuntimeException(
                         String.format("Post with id %s could not be found",postId))
         );
