@@ -18,7 +18,7 @@ import org.mongodb.morphia.annotations.Id;
  *
  * @author Niels Holvoet
  */
-@Entity("category")
+@Entity(value="category",noClassnameStored = true)
 @Getter
 @ToString
 public class MgCategory implements Category{

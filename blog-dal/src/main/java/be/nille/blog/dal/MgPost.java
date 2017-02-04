@@ -27,7 +27,7 @@ import org.mongodb.morphia.annotations.Reference;
  *
  * @author Niels Holvoet
  */
-@Entity("post")
+@Entity(value="post",noClassnameStored = true)
 @Indexes(
         @Index(fields = @Field("title"))
 )

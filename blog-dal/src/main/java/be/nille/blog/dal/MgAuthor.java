@@ -16,7 +16,7 @@ import org.mongodb.morphia.annotations.Id;
  *
  * @author Niels Holvoet
  */
-@Entity("author")
+@Entity(value="author",noClassnameStored = true)
 @Getter
 @ToString
 public class MgAuthor implements Author  {
