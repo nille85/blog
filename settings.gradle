@@ -18,6 +18,7 @@ println 'initializing build'
 include 'blog-frontend'
 include 'blog-service'
 include 'blog-dal'
+include 'blog-mongo-service'
 rootProject.name = 'blog'
 
 
