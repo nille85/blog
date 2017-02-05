@@ -11,9 +11,13 @@ import be.nille.blog.dal.MgAuthor.MgName;
 import be.nille.blog.dal.MgCategory;
 import be.nille.blog.dal.MgPost;
 import be.nille.blog.dal.MgPost.MgContent;
+import be.nille.blog.service.Post;
+import be.nille.blog.service.PostService;
+import be.nille.blog.service.mongo.MgPostService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import java.util.Iterator;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.junit.Ignore;
@@ -31,6 +35,25 @@ public class MorphiaIT {
     
     
     @Test
+    public void testFullSearch(){
+        final String url = System.getenv("MONGO_URL");
+        MongoClient client = new MongoClient(
+                new MongoClientURI(url)
+        );
+        
+        
+        DatastoreFactory factory = new DatastoreFactory();
+        Datastore dataStore = factory.createDataStore(client, "openid-connect");
+        
+        final PostService postService = new MgPostService(dataStore);
+        
+        
+        List<? extends Post> posts = postService.fullTextPostSearch("2");
+        log.debug("Number of posts:" + posts.size());
+    }
+    
+    
+    @Ignore
     public void testAggregation(){
         final String url = System.getenv("MONGO_URL");
         MongoClient client = new MongoClient(
@@ -68,6 +91,8 @@ public class MorphiaIT {
         DatastoreFactory factory = new DatastoreFactory();
         Datastore dataStore = factory.createDataStore(client, "openid-connect");
       
+       
+        
         MgAuthor author = new MgAuthor("johndoe@test.bl", "password", new MgName("john","doe"));
         dataStore.save(author);
         

@@ -1,6 +1,7 @@
 package be.nille.blog.web.controller.post;
 
 
+import be.nille.blog.web.controller.BlogPage;
 import be.nille.blog.dal.MgPost;
 
 import be.nille.blog.service.CategoryService;

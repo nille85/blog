@@ -34,17 +34,10 @@ public class MgPostService implements PostService {
     }
 
     @Override
-    public List<MgPost> findByOffsetAndLimit(final PageInfo pageInfo){
-
-        final int pageNumberForMongo = pageInfo.getPageNumber() -1;
-        final int numberOfPostsInPage = pageInfo.getNumberOfItemsInPage();
-        final int offset = pageNumberForMongo * numberOfPostsInPage;
-        final int limit = offset + numberOfPostsInPage;
-
-
+    public List<MgPost> findByPageInfo(final PageInfo pageInfo){
         List<MgPost> posts = dataStore.createQuery(MgPost.class)
-                .offset(offset)
-                .limit(limit)
+                .offset(pageInfo.getOffset())
+                .limit(pageInfo.getLimit())
                 .order("-createdDate").asList();
         return posts;
     }
@@ -84,6 +77,16 @@ public class MgPostService implements PostService {
         dataStore.save(post);
         post = dataStore.get(MgPost.class, new ObjectId(postId));
         return post;
+    }
+    
+    
+    @Override
+    public List<MgPost> fullTextPostSearch(final String searchValue){
+         List<MgPost> posts = dataStore.createQuery(MgPost.class)
+                .search(searchValue)
+                 .asList();
+             
+         return posts;
     }
 
     

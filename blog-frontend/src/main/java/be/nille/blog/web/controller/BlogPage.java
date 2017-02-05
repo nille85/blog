@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.web.controller.post;
+package be.nille.blog.web.controller;
 
 
 import be.nille.blog.service.Category;

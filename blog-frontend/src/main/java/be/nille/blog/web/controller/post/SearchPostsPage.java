@@ -10,27 +10,33 @@ import be.nille.blog.web.controller.PostsPage;
 import lombok.Getter;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
  * Created by nholvoet on 27/01/2017.
  */
-public final class HomePage extends BlogPage implements PostsPage {
+@Slf4j
+public final class SearchPostsPage extends BlogPage implements PostsPage {
 
    
     private final PostService postService;
-    @Getter
-    private final PageInfo pageInfo;
+  
+    private final String searchValue;
 
 
-    public HomePage(final CategoryService categoryService, final PostService postService, final PageInfo pageInfo){
+    public SearchPostsPage(final CategoryService categoryService, final PostService postService, final String searchValue){
         super(categoryService);
         this.postService = postService;
-        this.pageInfo = pageInfo;
+       
+        this.searchValue = searchValue;
     }
 
+    @Override
     public List<? extends Post> getPosts(){
-        return postService.findByPageInfo(pageInfo);
+        List<? extends Post> posts = postService.fullTextPostSearch(searchValue);
+        log.info("size of posts: " + posts.size());
+        return posts;
     }
     
     

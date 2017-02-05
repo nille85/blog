@@ -51,4 +51,15 @@ public final class PageInfo {
         }
         return this;
     }
+    
+    public int getOffset(){
+        final int pageNumberForMongo = pageNumber -1;
+        final int offset = pageNumberForMongo * numberOfItemsInPage;
+        return offset;
+    }
+    
+    public int getLimit(){
+        int limit = getOffset() + numberOfItemsInPage;
+        return limit;
+    }
 }

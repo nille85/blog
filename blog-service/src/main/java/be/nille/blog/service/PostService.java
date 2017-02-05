@@ -17,9 +17,11 @@ public interface PostService {
     
     List<? extends Post> findAll();
     
-    List<? extends Post> findByOffsetAndLimit(final PageInfo pageInfo);
+    List<? extends Post> findByPageInfo(final PageInfo pageInfo);
     
     List<? extends Post> findPostsByCategory(final String categoryId);
+    
+    List<? extends Post> fullTextPostSearch(final String searchValue);
     
     long getNumberOfPosts();
     

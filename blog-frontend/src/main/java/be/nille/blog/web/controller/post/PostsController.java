@@ -6,11 +6,15 @@
 package be.nille.blog.web.controller.post;
 
 import be.nille.blog.dal.MgPost;
+import be.nille.blog.service.Category;
 
 
 import be.nille.blog.service.CategoryService;
 import be.nille.blog.service.PageInfo;
+import be.nille.blog.service.Post;
 import be.nille.blog.service.PostService;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,12 +22,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author nholvoet
  */
 @Controller
+@Slf4j
 public class PostsController {
     
     private final CategoryService categoryService;
@@ -37,6 +43,7 @@ public class PostsController {
     
     @RequestMapping("/")
     public String indexAction (ModelMap model) {
+        
         PageInfo pageInfo = new PageInfo(postService.getNumberOfPosts());
         final HomePage homePage = new HomePage(categoryService,postService, pageInfo);
         model.put("page", homePage);
@@ -64,6 +71,14 @@ public class PostsController {
         page.addComment(new MgPost.MgComment(addComment.getAuthor(), addComment.getComment()));
         model.put("page", page);
         return "blog/post";
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/posts/search")
+    public String searchPostsAction (ModelMap model, @RequestParam(required = true, name = "searchValue") final String searchValue) {
+        log.info("searchValue:" + searchValue);
+        final SearchPostsPage searchPage = new SearchPostsPage(categoryService,postService, searchValue);
+        model.put("page", searchPage);
+        return "blog/index";
     }
     
 }

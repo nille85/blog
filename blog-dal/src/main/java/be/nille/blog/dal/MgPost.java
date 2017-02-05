@@ -9,6 +9,7 @@ import be.nille.blog.service.Post;
 import be.nille.blog.service.Post.Comment;
 import be.nille.blog.service.Post.Content;
 import be.nille.blog.service.Post.Status;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,7 @@ import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.utils.IndexType;
 
 /**
  *
@@ -29,7 +31,8 @@ import org.mongodb.morphia.annotations.Reference;
  */
 @Entity(value="post",noClassnameStored = true)
 @Indexes(
-        @Index(fields = @Field("title"))
+        @Index(fields = @Field(value = "content", type = IndexType.TEXT))
+       
 )
 @Getter
 @ToString
