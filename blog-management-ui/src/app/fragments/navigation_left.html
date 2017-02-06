@@ -1,6 +1,13 @@
-<div class="col-sm-3 col-md-2 sidebar">
-  <ul class="nav nav-sidebar">
-    <li class="active"><a href="#">Posts <span class="sr-only">(current)</span> </a></li>
-    <li><a href="#">Categories</a></li>
-  </ul>
+<div ng-controller="NavigationLeftCtrl as vm">
+
+	<div ng-show="vm.principal.exists()" class="col-sm-3 col-md-2 sidebar">
+	  <ul class="nav nav-sidebar">
+	    <li ng-class="vm.getClass('/posts')" >
+	    	<a href="/#!/posts">Posts</a>
+	    </li>
+	     <li ng-class="vm.getClass('/categories')" >
+	     	<a href="/#!/categories">Categories</a>
+	     </li>
+	  </ul>
+	</div>
 </div>

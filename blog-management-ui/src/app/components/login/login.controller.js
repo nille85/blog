@@ -4,8 +4,8 @@
    
   angular.module('blog').controller('LoginCtrl', LoginCtrl);
 
-  LoginCtrl.$inject = ['UserService','Principal','$log','$location','$localStorage'];
-  function LoginCtrl(UserService, Principal, $log, $location, $localStorage) {
+  LoginCtrl.$inject = ['UserService','Principal','$log','$location'];
+  function LoginCtrl(UserService, Principal, $log, $location) {
     var vm = this;
     
     vm.login = login;

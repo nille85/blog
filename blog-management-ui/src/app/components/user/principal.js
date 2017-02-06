@@ -4,20 +4,21 @@
      angular
         .module('blog').service('Principal', Principal);
  
-    Principal.$inject = ['$sessionStorage', 'jwtHelper'];
+    Principal.$inject = ['jwtHelper','$localStorage'];
 
-    function Principal($sessionStorage, jwtHelper) {
-
+    function Principal(jwtHelper,$localStorage) {
 
         
         var principal = null;
 
         var
         clear = function() {
+         delete $localStorage.token;
          principal = null;
         },
 
         create = function(jwt) {
+          $localStorage.token = jwt;
           principal = jwtHelper.decodeToken(jwt);
           
         },
@@ -25,13 +26,13 @@
             return principal;
         },
 
-        isAuthorized = function(){
+        exists = function(){
 
           return principal !== null;
         };
 
         return {
-          isAuthorized: isAuthorized,
+          exists: exists,
           create: create,
           clear: clear,
           get : get

@@ -2,6 +2,7 @@
  	'use strict';
   	angular.module("blog", ['ngRoute', 'ngStorage','angular-jwt'])
   		   .config(routeProviderConfig)
+  		   .run(principalRun)
   		   .run(authenticationRun)
   		   .run(storageRun);
 
@@ -17,7 +18,11 @@
 	        templateUrl: 'app/components/post/overview.html',
 	        protected: true
 	      })
-	      .when('/posts/:postId', {
+	      .when('/posts/edit:postId', {
+	        templateUrl: 'app/components/post/edit.html',
+	        protected: true
+	      })
+	      .when('/posts/add', {
 	        templateUrl: 'app/components/post/add.html',
 	        protected: true
 	      })
@@ -26,7 +31,7 @@
 	        protected: true
 	      })
 	      .when('/categories/:categoryId', {
-	        templateUrl: 'app/components/category/add.html',
+	        templateUrl: 'app/components/category/save.html',
 	        protected: true
 	      })
 	      .otherwise({
@@ -35,8 +40,8 @@
 	  }
 
 
-	  authenticationRun.$inject = ['$rootScope', '$log', '$localStorage', '$location'];
-	  function authenticationRun($rootScope, $log, $localStorage, $location) {
+	  authenticationRun.$inject = ['$rootScope', '$log', 'Principal', '$location'];
+	  function authenticationRun($rootScope, $log, Principal, $location) {
 	    $rootScope.$on("$routeChangeSuccess", function (event, nextRoute, currentRoute) {
 	      $rootScope.protected = false;
 	      if (nextRoute) {
@@ -44,17 +49,27 @@
 	        $rootScope.protected = protectedRoute;
 	        console.log("Next route is:" + nextRoute.$$route.protected);
 	        if(protectedRoute){
-	        	$log.debug(nextRoute.$$route);
 	        	//check JWT
-	        	if(!$localStorage.token){
+	        	if(!Principal.exists()){
 	        		$location.path( "/" );
 	        	}
-
-
 	        }
+	        /*}else{
+		        if(Principal.exists()){
+		        	$location.path("/posts");
+		        }
+	        }*/
+
 	        
 	      }
 	    });
+	  }
+
+	  principalRun.$inject = ['$localStorage','Principal'];
+	  function principalRun($localStorage, Principal){
+	  	if($localStorage.token){
+	  		Principal.create($localStorage.token);
+	  	}
 	  }
 
 

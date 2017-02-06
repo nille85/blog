@@ -14,10 +14,9 @@
 
     function logOff(){
       Principal.clear();
-      alert("logging off");
-    }
-
     
+    }
+   
 
   }
 

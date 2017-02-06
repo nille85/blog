@@ -5,8 +5,8 @@
         .module('blog')
         .factory('CategoryService', CategoryService);
  
-    CategoryService.$inject = ['$sessionStorage', '$filter', '$q'];
-    function CategoryService($sessionStorage, $filter, $q) {
+    CategoryService.$inject = ['$sessionStorage', '$filter', '$q','$log'];
+    function CategoryService($sessionStorage, $filter, $q, $log) {
  
         var service = {};
  
@@ -32,42 +32,50 @@
             var deferred = $q.defer();
             var filtered = $filter('filter')(getCategories(), { id: id });
             var post = filtered.length ? filtered[0] : null;
-            deferred.resolve(post);
+            deferred.resolve(post); 
             return deferred.promise;
         }
 
-        function add(post){
-            getCategories().push(post);
+        function add(category){
+            var deferred = $q.defer();
+            category.id = Number(getCategories()[getCategories().length -1].id) + 1;
+            getCategories().push(category);
+            $log.debug(getCategories());
+            deferred.resolve(category);
+            return deferred.promise;
         }
       
-        function remove(post){
-            var index = 0;
-            var found = false;
-            getCategories().forEach(function(p){
-                if(p.id === post.id){
-                    found = true;
-                }
-                index++;
+        function remove(category){
+
+            var index;
+            
+            //breaks when predicate returns true
+            getCategories().some(function(c,i) {
+                index = i;
+                return c.id == category.id
             });
-            if(found){
-                getCategories().splice(index,1);
-            }
+            $log.debug("found category", index);
+            getCategories().splice(index,1);
+          
+
+            var deferred = $q.defer();
+            deferred.resolve(true);
+            return deferred.promise;
             
         }
 
-        function update(post){
-            var index = 0;
-            var found = false;
-            getCategories().forEach(function(p){
-                if(p.id === post.id){
-                    found = true;
-                }
-                index++;
+        function update(category){
+           var index;
+            
+            //breaks when predicate returns true
+            getCategories().some(function(c,i) {
+                index = i;
+                return c.id == category.id
             });
 
-            if(found){
-                getCategories().splice(index,1,post);
-            }
+          
+            getCategories().splice(index,1,category);
+            
             
         }
 
