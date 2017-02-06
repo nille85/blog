@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "ngstorage": "^0.3.11",
-    "angular-jwt": "^0.1.9"
+    "angular-jwt": "^0.1.9",
+    "angular-xeditable": "^0.6.0"
   }
 }

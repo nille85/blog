@@ -1,9 +1,10 @@
  (function () {
  	'use strict';
-  	angular.module("blog", ['ngRoute', 'ngStorage','angular-jwt'])
+  	angular.module("blog", ['ngRoute', 'ngStorage','angular-jwt','xeditable'])
   		   .config(routeProviderConfig)
   		   .run(principalRun)
   		   .run(authenticationRun)
+  		   .run(editableRun)
   		   .run(storageRun);
 
 
@@ -71,6 +72,12 @@
 	  		Principal.create($localStorage.token);
 	  	}
 	  }
+
+
+	  editableRun.$inject = ['editableOptions'];
+	  function editableRun(editableOptions) {
+		  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+	  };
 
 
 	  /**

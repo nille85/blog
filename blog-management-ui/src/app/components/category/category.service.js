@@ -38,8 +38,8 @@
 
         function add(category){
             var deferred = $q.defer();
-            category.id = Number(getCategories()[getCategories().length -1].id) + 1;
-            getCategories().push(category);
+            category.id = Number(getCategories()[getCategories().length -2].id) + 1;
+            //getCategories().push(category);
             $log.debug(getCategories());
             deferred.resolve(category);
             return deferred.promise;
@@ -75,6 +75,9 @@
 
           
             getCategories().splice(index,1,category);
+            var deferred = $q.defer();
+            deferred.resolve(category);
+            return deferred.promise;
             
             
         }
