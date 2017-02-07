@@ -22,7 +22,8 @@
         //public functions
         function findAll() {
             var deferred = $q.defer();
-            deferred.resolve(getCategories());
+            var copy = angular.copy(getCategories());
+            deferred.resolve(copy);
             return deferred.promise;
         }
         
@@ -38,11 +39,24 @@
 
         function add(category){
             var deferred = $q.defer();
-            category.id = Number(getCategories()[getCategories().length -2].id) + 1;
-            //getCategories().push(category);
-            $log.debug(getCategories());
+            var categories = getCategories();
+            category.id = getId(categories);
+            
+            categories.push(category);
+            
+            $log.debug("categories",categories);
             deferred.resolve(category);
             return deferred.promise;
+        }
+
+        function getId(array){
+            var length = array.length;
+            if(length != 0){
+                return Number(array[length - 1].id) + 1;
+            }
+           
+            return 1;
+            
         }
       
         function remove(category){

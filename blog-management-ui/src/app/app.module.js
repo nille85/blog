@@ -86,9 +86,15 @@
 	  */
 	  storageRun.$inject = ['$sessionStorage'];
 	  function storageRun($sessionStorage) {
-	    $sessionStorage.credentials = buildCredentials();
-	    $sessionStorage.categories = buildCategories();
-	    $sessionStorage.posts = buildPosts();
+	  	if(!$sessionStorage.credentials){
+	    	$sessionStorage.credentials = buildCredentials();
+		}
+		if(!$sessionStorage.categories){
+	    	$sessionStorage.categories = buildCategories();
+		}
+		if(!$sessionStorage.posts){
+	    	$sessionStorage.posts = buildPosts();
+		}
 
 	  }
 

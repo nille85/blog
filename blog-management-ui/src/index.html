@@ -27,7 +27,7 @@
   </head>
 
   <body ng-app="blog">
-    <div ng-include="'app/fragments/navigation_top.html'"></div>
+    <div ng-include="'app/components/navigation/navigation_top.html'"></div>
 
     <div ng-view=""></div>
  
@@ -50,27 +50,26 @@
     <script src="app/app.module.js"></script>
 
     <!--Navigation Top-->
-    <script src="app/fragments/navigation.top.controller.js"></script>
-    <script src="app/fragments/navigation.left.controller.js"></script>
-
+    <script src="app/components/navigation/navigation.top.controller.js"></script>
+    <script src="app/components/navigation/navigation.left.controller.js"></script>
+ 
     <!--Login component-->
     <script src="app/components/login/login.controller.js"></script>
-    <script src="app/components/login/user.service.js"></script>
-
-    <script src="app/components/user/principal.js"></script>
+    <script src="app/components/login/principal.js"></script>
 
     <!--Post component -->
     <script src="app/components/post/overview.controller.js"></script>
     <script src="app/components/post/add.controller.js"></script>
-    <script src="app/components/post/post.service.js"></script>
 
      <!--Category component -->
     <script src="app/components/category/overview.controller.js"></script>
-    <script src="app/components/category/category.service.js"></script>
+   
 
-
-    <!--Category component -->
-    <script src="app/components/category/category.service.js"></script>
+    <!--Storage services -->
+    <script src="app/components/login/credential.storage.service.js"></script>
+    <script src="app/components/category/category.storage.service.js"></script>
+    <script src="app/components/post/post.storage.service.js"></script>
+    
 
   </body>
 </html>

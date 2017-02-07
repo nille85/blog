@@ -30,7 +30,7 @@
    
 
     function save(category, id){
-    //$scope.user not updated yet
+    
       if(id){
          angular.extend(category, {id: id});
           CategoryService.update(category)
@@ -56,30 +56,6 @@
           loadCategories();
         });
     }
-
-
-     /*
-    function add(category){
-      var copy = angular.copy(category);
-
-      $log.debug("category:",category);
-      CategoryService.add(copy)
-        .then(function(c){
-          $log.debug("category added:" + c);
-
-        });
-
-    }*/
-
-    
-    /*
-    function update(){
-      CategoryService.update(vm.editCategory)
-        .then(function(){
-          vm.editCategory = null;
-          loadCategories();
-        });
-    }*/
 
 
 
