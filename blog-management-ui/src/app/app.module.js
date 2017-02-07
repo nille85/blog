@@ -1,12 +1,12 @@
  (function () {
  	'use strict';
-  	angular.module("blog", ['ngRoute', 'ngStorage','angular-jwt','xeditable'])
+  	angular.module("blog", ['ngRoute', 'ngStorage','angular-jwt','xeditable','ngSanitize','markdown'])
   		   .config(routeProviderConfig)
   		   .run(principalRun)
   		   .run(authenticationRun)
   		   .run(editableRun)
   		   .run(storageRun);
-
+	
 
   	routeProviderConfig.$inject = ['$routeProvider'];
 	  function routeProviderConfig($routeProvider) {
@@ -19,7 +19,7 @@
 	        templateUrl: 'app/components/post/overview.html',
 	        protected: true
 	      })
-	      .when('/posts/edit:postId', {
+	      .when('/posts/edit/:postId', {
 	        templateUrl: 'app/components/post/edit.html',
 	        protected: true
 	      })

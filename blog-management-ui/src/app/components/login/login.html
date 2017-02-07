@@ -9,18 +9,18 @@
                             <label for="email" class="sr-only">Email</label>
                             <input type="email" data-ng-model="vm.credentials.email" id="Email" name="email" class="form-control" placeholder="Email" required>
                             <span style="color:red;" ng-show="loginForm['email'].$invalid && loginForm['email'].$dirty">
-                            Email is een verplicht veld
+                            Email is a required field
                             </span>
                         </div>
                         <div class="form-group">
                             <label for="password" class="sr-only">Password</label>
                             <input type="password" data-ng-model="vm.credentials.password" id="password" name="password"  class="form-control" placeholder="Password" required>
                              <span style="color:red;" ng-show="loginForm['password'].$invalid && loginForm['password'].$dirty">
-                            Paswoord is een verplicht veld
+                            Pasword is a required field
                             </span>
                         </div>
                         <div class="alert alert-danger" id="alertCredentials" data-ng-show="vm.error" role="alert">
-                            Verkeerde combinatie van email adres en/of wachtwoord
+                            Invalid combination of email adress and/or password
                         </div>
                         <input type="submit" id="btn-login" ng-disabled="loginForm.$invalid" class="btn btn-primary btn-lg btn-block" value="Log in">
                     </form>

@@ -14,6 +14,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="public/vendor/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
@@ -41,11 +42,25 @@
     <script src="public/vendor/angular-jwt/dist/angular-jwt.min.js"></script>
     <script src="public/vendor/angular-xeditable/dist/js/xeditable.js"></script>
 
+
+
+
+
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+    <script src="public/vendor/showdown/dist/showdown.min.js"></script>
+    <script src="public/vendor/angular-markdown-filter/markdown.js"></script>
+    
+    <script src="public/vendor/angular-sanitize/angular-sanitize.js"></script>
+
+    <script src="js/post.js"></script>
+
     <!--Angular scripts-->
     <script src="app/app.module.js"></script>
 
@@ -60,6 +75,7 @@
     <!--Post component -->
     <script src="app/components/post/overview.controller.js"></script>
     <script src="app/components/post/add.controller.js"></script>
+    <script src="app/components/post/edit.controller.js"></script>
 
      <!--Category component -->
     <script src="app/components/category/overview.controller.js"></script>
@@ -69,6 +85,9 @@
     <script src="app/components/login/credential.storage.service.js"></script>
     <script src="app/components/category/category.storage.service.js"></script>
     <script src="app/components/post/post.storage.service.js"></script>
+
+
+  
     
 
   </body>

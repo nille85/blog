@@ -11,6 +11,15 @@
     loadPosts();
 
     vm.gotoAddPost = gotoAddPost;
+    vm.remove = remove;
+
+
+    function remove(post){
+      PostService.remove(post)
+        .then(function(success){
+          loadPosts();
+        });
+    }
 
 
     function loadPosts(){

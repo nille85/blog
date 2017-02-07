@@ -36,22 +36,46 @@
             return deferred.promise;
         }
 
+       
+
         function add(post){
-            getPosts().push(post);
+            var deferred = $q.defer();
+            var posts = getPosts();
+            post.id = getId(posts);
+            post.status = 'Draft';
+            post.createdDate = new Date();
+            posts.push(post);
+            deferred.resolve(post);
+            return deferred.promise;
         }
+
+        function getId(array){
+            var length = array.length;
+            if(length != 0){
+                return Number(array[length - 1].id) + 1;
+            }
+           
+            return 1;
+            
+        }
+
+
       
         function remove(post){
-            var index = 0;
-            var found = false;
-            getPosts().forEach(function(p){
-                if(p.id === post.id){
-                    found = true;
-                }
-                index++;
+            var index;
+            
+            //breaks when predicate returns true
+            getPosts().some(function(c,i) {
+                index = i;
+                return c.id == post.id
             });
-            if(found){
-                getPosts().splice(index,1);
-            }
+           
+            getPosts().splice(index,1);
+          
+
+            var deferred = $q.defer();
+            deferred.resolve(true);
+            return deferred.promise;
             
         }
 

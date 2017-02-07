@@ -15,8 +15,7 @@
     vm.add = add;
     vm.save = save;
     vm.remove = remove;
-    
-   
+     
    
 
     function add() {
@@ -26,11 +25,9 @@
       vm.categories.push(vm.inserted);
     };
 
-  
-   
+    
 
     function save(category, id){
-    
       if(id){
          angular.extend(category, {id: id});
           CategoryService.update(category)

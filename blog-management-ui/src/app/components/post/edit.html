@@ -1,4 +1,4 @@
-<div  ng-controller="AddPostCtrl as vm">
+<div  ng-controller="EditPostCtrl as vm">
  <div class="container-fluid">
       <div class="row">
         <!--Left column-->
@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-		 			<form role="form"  id="addForm" name="addForm" ng-submit="vm.add()" novalidate>
+		 			<form role="form"  id="addForm" name="addForm" ng-submit="vm.edit()" novalidate>
 		            <div class="form-group">
 		              <label for="txtTitle">Title</label>
 		              <input data-ng-model="vm.post.title" name="title" type="title" class="form-control" id="txtTitle" placeholder="Title" required>
