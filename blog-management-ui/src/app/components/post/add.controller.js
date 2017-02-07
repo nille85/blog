@@ -4,11 +4,19 @@
    
   angular.module('blog').controller('AddPostCtrl', AddPostCtrl);
 
-  AddPostCtrl.$inject = [];
-  function AddPostCtrl() {
+  AddPostCtrl.$inject = ['CategoryService'];
+  function AddPostCtrl(CategoryService) {
     var vm = this;
    
-    alert("loading add post");
+   	loadCategories();
+
+    function loadCategories(){
+      CategoryService.findAll()
+                    .then(function(categories){
+                      vm.categories = categories;
+                     
+                    });
+    }
 
 
   }
