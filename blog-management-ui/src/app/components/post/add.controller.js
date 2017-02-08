@@ -4,12 +4,13 @@
    
   angular.module('blog').controller('AddPostCtrl', AddPostCtrl);
 
-  AddPostCtrl.$inject = ['CategoryService','PostService', '$log', '$filter'];
-  function AddPostCtrl(CategoryService, PostService, $log, $filter) {
+  AddPostCtrl.$inject = ['CategoryService','PostService', '$log', '$filter', '$route'];
+  function AddPostCtrl(CategoryService, PostService, $log, $filter, $route) {
     var vm = this;
    
     vm.add = add;
     vm.publish = publish;
+    vm.addAnotherPost = addAnotherPost;
    
    	loadCategories();
 
@@ -27,8 +28,12 @@
       $log.debug(post);
       PostService.add(post)
         .then(function(p){
-            $log.debug(p);
+            vm.added = true;
         });
+    }
+
+    function addAnotherPost(){
+       $route.reload();
     }
 
  

@@ -23,12 +23,11 @@
           
         },
         get = function(){
-            return principal;
+          return principal;
         },
 
         exists = function(){
-
-          return principal !== null;
+           return principal !== null;
         };
 
         return {

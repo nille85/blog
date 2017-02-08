@@ -54,12 +54,12 @@
 	        	if(!Principal.exists()){
 	        		$location.path( "/" );
 	        	}
-	        }
-	        /*}else{
+	        
+	        }else{
 		        if(Principal.exists()){
 		        	$location.path("/posts");
 		        }
-	        }*/
+	        }
 
 	        
 	      }
@@ -88,13 +88,13 @@
 	  function storageRun($sessionStorage) {
 	  	if(!$sessionStorage.credentials){
 	    	$sessionStorage.credentials = buildCredentials();
-		}
+		}/*
 		if(!$sessionStorage.categories){
 	    	$sessionStorage.categories = buildCategories();
 		}
 		if(!$sessionStorage.posts){
 	    	$sessionStorage.posts = buildPosts();
-		}
+		}*/
 
 	  }
 
