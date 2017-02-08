@@ -13,18 +13,34 @@ gulp.task('default', ['build'], function(){
 	console.log('Build is finished ...');
 });
 
-gulp.task('build', ['clean'], function(){
+
+gulp.task('build',['copy'], function(){
+    var fs = require("fs");
+    var inject = require('gulp-inject-string');
+    var os = require("os");
+
+    fs.readFile("src/config/scripts.js", "utf-8", function(err, data) {     
+       var scriptsArray = eval(data);
+       var result =  reduceScripts(scriptsArray);
+        gulp.src('dist/index.html')
+        .pipe(inject.after('<!--BEGIN ANGULAR SCRIPTS-->', os.EOL + result))
+        .pipe(gulp.dest('dist/'));
+    })
+  });
+
+
+gulp.task('copy', ['clean'], function(){
 
 	var stream = gulp.src(paths.scripts.concat(paths.html).concat(paths.css))
- 		.pipe(gulp.dest(paths.dist));
- 	
- 	return stream.on('end', function() {
-    	//run some code here
-    	return gulp.src(paths.bower)
-  		.pipe(gulp.dest(paths.dist + 'public/vendor/'))
-  	});
+ 		.pipe(gulp.dest(paths.dist))
 
-  	
+ 	return stream.on('end', function () { 
+     return gulp.src(paths.bower)
+      .pipe(gulp.dest(paths.dist + 'public/vendor/')); 
+
+  });
+
+  	  	
 });
 
 
@@ -49,7 +65,26 @@ gulp.task('connect', function () {
 
 
 
-gulp.task('watch', function () {
-    
+gulp.task('watch', function () { 
      gulp.watch('src/**/*', ['build']);
 });
+
+
+
+
+var reduceScripts = function(scripts){   
+  var result  = scripts.map(function(script){
+            return "\t<script src=\""+ script + "\"></script>";
+         }).reduce(function(first,second){
+            return first + "\n" + second;
+         });
+
+  return result;
+};
+
+
+
+
+
+
+
