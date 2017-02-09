@@ -19,10 +19,10 @@ import lombok.ToString;
 public class MAuthor implements Author {
     
     private final String id;
-    private final DAuthor origin;
+    private final Author origin;
     
 
-    public MAuthor(final String id, final DAuthor author){
+    public MAuthor(final String id, final Author author){
         this.id = id;
         this.origin = author;
     }
