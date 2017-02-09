@@ -16,18 +16,22 @@
 
     vm.gotoAddPost = gotoAddPost;
     vm.remove = remove;
+    vm.loadPosts = loadPosts;
 
     
 
-
+    /*
     $scope.$watch(
         function(scope) {
             return(vm.pageNumber);
         },
         function handleChange( newPageNumber, oldPageNumber ) {
-            loadPosts(newPageNumber,vm.itemsPerPage);
+            loadPosts(newPageNumber,vm.itemsPerPage)
+              .then(function(posts){
+                vm.posts = posts;
+              });
         }
-    );
+    );*/
 
     
 
@@ -48,9 +52,9 @@
 
 
     function loadPosts(pageNumber,itemsPerPage){
-       PostService.findByPage(pageNumber,itemsPerPage)
+       return PostService.findByPage(pageNumber,itemsPerPage)
                     .then(function(posts){
-                      vm.posts = posts;
+                        return posts;
                     });
     }
 
