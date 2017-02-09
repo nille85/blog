@@ -5,15 +5,12 @@
  */
 package be.nille.blog.web.controller.post;
 
-import be.nille.blog.dal.MgPost;
-import be.nille.blog.service.Category;
+import be.nille.blog.domain.post.Comment;
 
 
-import be.nille.blog.service.CategoryService;
+import be.nille.blog.domain.category.CategoryService;
 import be.nille.blog.service.PageInfo;
-import be.nille.blog.service.Post;
-import be.nille.blog.service.PostService;
-import java.util.List;
+import be.nille.blog.domain.post.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,7 +65,7 @@ public class PostsController {
     @RequestMapping(method = RequestMethod.POST, value = "/posts/{postId}")
     public String postCommentAction (ModelMap model, @PathVariable(name = "postId") final String postId, @ModelAttribute AddCommentCommand addComment) {
         final PostDetailPage page = new PostDetailPage(categoryService, postService, postId);
-        page.addComment(new MgPost.MgComment(addComment.getAuthor(), addComment.getComment()));
+        page.addComment(new Comment(addComment.getAuthor(), addComment.getComment()));
         model.put("page", page);
         return "blog/post";
     }

@@ -3,16 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.web.controller;
+package be.nille.blog.domain.author;
 
-import be.nille.blog.domain.post.Post;
-import java.util.List;
+import lombok.Getter;
 
 /**
  *
- * @author Niels Holvoet
+ * @author nholvoet
  */
-public interface PostsPage {
-    
-    List<? extends Post> getPosts();
+public interface Author {
+
+    String getId();
+
+    String getEmail();
+
+    String getPassword();
+
+    Name getName();
+
+
 }

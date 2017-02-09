@@ -5,8 +5,8 @@
  */
 package be.nille.blog.mongo.category;
 
-import be.nille.blog.service.Category;
-import be.nille.blog.service.CategoryService;
+import be.nille.blog.domain.category.Category;
+import be.nille.blog.domain.category.CategoryService;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;

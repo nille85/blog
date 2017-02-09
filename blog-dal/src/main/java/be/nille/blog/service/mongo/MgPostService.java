@@ -2,10 +2,10 @@ package be.nille.blog.service.mongo;
 
 import be.nille.blog.service.PageInfo;
 import be.nille.blog.dal.MgPost;
-import be.nille.blog.service.Post;
-import be.nille.blog.service.Post.Comment;
+import be.nille.blog.domain.post.Post;
+import be.nille.blog.domain.post.Comment;
 
-import be.nille.blog.service.PostService;
+import be.nille.blog.domain.post.PostService;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;

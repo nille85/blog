@@ -5,11 +5,9 @@
  */
 package be.nille.blog.mongo.category;
 
-import be.nille.blog.domain.category.DCategory;
-import be.nille.blog.service.Category;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import be.nille.blog.domain.category.Category;
 import lombok.ToString;
-import org.jongo.marshall.jackson.oid.MongoId;
+
 
 /**
  *
@@ -20,13 +18,15 @@ public class MCategory implements Category {
     
   
     private final String id;
-    private final DCategory origin;
+    private final Category origin;
     
 
-    public MCategory(final String id, final DCategory category){
+    public MCategory(final String id, final Category category){
         this.id = id;
         this.origin = category;
     }
+    
+   
 
     @Override
     public String getId() {

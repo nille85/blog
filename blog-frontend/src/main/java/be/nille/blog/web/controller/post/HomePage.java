@@ -1,10 +1,10 @@
 package be.nille.blog.web.controller.post;
 
 import be.nille.blog.web.controller.BlogPage;
-import be.nille.blog.service.CategoryService;
+import be.nille.blog.domain.category.CategoryService;
 import be.nille.blog.service.PageInfo;
-import be.nille.blog.service.Post;
-import be.nille.blog.service.PostService;
+import be.nille.blog.domain.post.Post;
+import be.nille.blog.domain.post.PostService;
 import be.nille.blog.web.controller.PostsPage;
 
 import lombok.Getter;

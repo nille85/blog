@@ -5,7 +5,6 @@
  */
 package be.nille.blog.domain.category;
 
-import be.nille.blog.service.Category;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -17,7 +16,9 @@ import lombok.ToString;
 @ToString
 public class DCategory implements Category{
     
-    private final String description;
+    private String description;
+    
+    private DCategory(){}
     
     public DCategory(final String description){
         this.description = description;
@@ -26,7 +27,7 @@ public class DCategory implements Category{
 
     @Override
     public String getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     
