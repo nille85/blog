@@ -4,14 +4,32 @@
    
   angular.module('blog').controller('OverviewPostCtrl', OverviewPostCtrl);
 
-  OverviewPostCtrl.$inject = ['PostService', '$log', '$location'];
-  function OverviewPostCtrl(PostService, $log, $location) {
+  OverviewPostCtrl.$inject = ['PostService', '$log', '$location','$scope'];
+  function OverviewPostCtrl(PostService, $log, $location, $scope) {
     var vm = this;
    
-    loadPosts();
+    vm.pageNumber = 1;
+    vm.itemsPerPage = 3;
+    
+    getCount();
+    
 
     vm.gotoAddPost = gotoAddPost;
     vm.remove = remove;
+
+    
+
+
+    $scope.$watch(
+        function(scope) {
+            return(vm.pageNumber);
+        },
+        function handleChange( newPageNumber, oldPageNumber ) {
+            loadPosts(newPageNumber,vm.itemsPerPage);
+        }
+    );
+
+    
 
 
     function remove(post){
@@ -21,9 +39,16 @@
         });
     }
 
+    function getCount(){
+      PostService.getTotalCount()
+              .then(function(count){
+                vm.count = count;
+              });
+    }
 
-    function loadPosts(){
-       PostService.findAll()
+
+    function loadPosts(pageNumber,itemsPerPage){
+       PostService.findByPage(pageNumber,itemsPerPage)
                     .then(function(posts){
                       vm.posts = posts;
                     });

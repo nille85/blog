@@ -68,6 +68,11 @@
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col col-xs-offset-3 col-xs-6">
+                                    {{vm.pageNumber}}:{{vm.itemsPerPage}}
+                                     <ul uib-pager total-items="vm.count" items-per-page="vm.itemsPerPage" ng-model="vm.pageNumber"></ul>
+                                   
+
+                                    <!--
                                     <nav aria-label="Page navigation" class="text-center">
                                         <ul class="pagination">
                                             <li>
@@ -87,6 +92,7 @@
                                             </li>
                                         </ul>
                                     </nav>
+                                -->
                                 </div>
                                 
                             </div>

@@ -1,6 +1,7 @@
  (function () {
  	'use strict';
-  	angular.module("blog", ['ngRoute', 'ngStorage','angular-jwt','xeditable','ngSanitize','markdown'])
+  	angular.module("blog", ['ngRoute', 'ngStorage','angular-jwt','xeditable',
+  		'ngSanitize','markdown','ui.bootstrap'])
   		   .config(routeProviderConfig)
   		   .run(principalRun)
   		   .run(authenticationRun)

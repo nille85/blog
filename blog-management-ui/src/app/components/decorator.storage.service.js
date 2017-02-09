@@ -10,6 +10,8 @@
  
         var service = {};
  
+        service.getTotalCount = getTotalCount;
+        service.findByPage = findByPage;
         service.findAll = findAll;
         service.findById = findById;
         service.add = add;
@@ -18,6 +20,29 @@
        
         return service;
         
+
+        function getTotalCount(){
+            var deferred = $q.defer();
+            var count = getEntities().length;
+            deferred.resolve(count); 
+            return deferred.promise;
+        }
+
+
+        function findByPage(pageNumber,itemsPerPage){
+           
+            var deferred = $q.defer();
+            var copy = angular.copy(getEntities());
+           
+          
+            var start = (pageNumber - 1) * itemsPerPage;
+            var end = start + itemsPerPage;
+            $log.debug(start + ":" + end);
+            var range = copy.slice(start, end);
+            deferred.resolve(range); 
+            return deferred.promise;
+
+        }
     
 
         function findAll() {
