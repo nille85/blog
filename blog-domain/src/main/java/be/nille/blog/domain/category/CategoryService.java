@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.web.controller;
+package be.nille.blog.domain.category;
 
-import be.nille.blog.domain.post.Post;
+import be.nille.blog.domain.category.Category;
 import java.util.List;
 
 /**
  *
- * @author Niels Holvoet
+ * @author nholvoet
  */
-public interface PostsPage {
+public interface CategoryService {
     
-    List<? extends Post> getPosts();
+    List<? extends Category> findAll();
 }

@@ -5,10 +5,10 @@
  */
 package be.nille.blog.dal;
 
-import be.nille.blog.service.Post;
-import be.nille.blog.service.Post.Comment;
-import be.nille.blog.service.Post.Content;
-import be.nille.blog.service.Post.Status;
+import be.nille.blog.domain.post.Post;
+import be.nille.blog.domain.post.Comment;
+import be.nille.blog.domain.post.Content;
+import be.nille.blog.domain.post.Post.Status;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -84,50 +84,10 @@ public class MgPost implements Post {
     }
 
     @Override
-    public String getyId() {
+    public String getId() {
         return id.toHexString();
     }
 
-    @Getter
-    @ToString
-    @Embedded
-    public static class MgComment implements Comment {
-
-        
-        private String author;
-        private String text;
-        private Date createdDate;
-
-        public MgComment() {
-        }
-
-        public MgComment(final String author, final String text) {
-            this.text = text;
-            this.author = author;
-            this.createdDate = new Date();
-        }
-
-       
-
-    }
-
-    @Getter
-    @ToString
-    @Embedded
-    public static class MgContent implements Content {
-
-        private String title;
-        private String text;
-
-        public MgContent() {
-        }
-
-        public MgContent(final String title, final String text) {
-            this.title = title;
-            this.text = text;
-        }
-
-    }
     
     
 

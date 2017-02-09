@@ -5,14 +5,15 @@
  */
 package be.nille.blog.domain.author;
 
-import be.nille.blog.service.Author;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  *
  * @author Niels Holvoet
  */
 @Getter
+@ToString
 public class DAuthor implements Author {
     
     private final Name name;

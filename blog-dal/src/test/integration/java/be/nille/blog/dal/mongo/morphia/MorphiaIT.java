@@ -7,12 +7,13 @@ package be.nille.blog.dal.mongo.morphia;
 
 
 import be.nille.blog.dal.MgAuthor;
-import be.nille.blog.dal.MgAuthor.MgName;
 import be.nille.blog.dal.MgCategory;
 import be.nille.blog.dal.MgPost;
-import be.nille.blog.dal.MgPost.MgContent;
-import be.nille.blog.service.Post;
-import be.nille.blog.service.PostService;
+
+import be.nille.blog.domain.author.Name;
+import be.nille.blog.domain.post.Content;
+import be.nille.blog.domain.post.Post;
+import be.nille.blog.domain.post.PostService;
 import be.nille.blog.service.mongo.MgPostService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -93,14 +94,14 @@ public class MorphiaIT {
       
        
         
-        MgAuthor author = new MgAuthor("johndoe@test.bl", "password", new MgName("john","doe"));
+        MgAuthor author = new MgAuthor("johndoe@test.bl", "password", new Name("john","doe"));
         dataStore.save(author);
         
         MgCategory category = new MgCategory("MongoDB");
         dataStore.save(category);
         
         for(int i=1;i<=20;i++){
-            MgPost post = new MgPost(category, author, new MgContent("title " + i, "text " + i));
+            MgPost post = new MgPost(category, author, new Content("title " + i, "text " + i));
             dataStore.save(post);
         }
         

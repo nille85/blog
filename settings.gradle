@@ -16,8 +16,7 @@ include 'services:webservice'
 */
 println 'initializing build'
 include 'blog-frontend'
-include 'blog-service'
-include 'blog-dal'
+include 'blog-domain'
 include 'blog-mongo-service'
 rootProject.name = 'blog'
 

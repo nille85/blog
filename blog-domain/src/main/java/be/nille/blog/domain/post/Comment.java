@@ -5,7 +5,6 @@
  */
 package be.nille.blog.domain.post;
 
-import be.nille.blog.service.Post;
 import java.util.Date;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,13 +15,13 @@ import lombok.ToString;
  */
 @Getter
 @ToString
-public class DComment implements Post.Comment {
+public class Comment {
 
     private final String author;
     private final String text;
     private final Date createdDate;
 
-    public DComment(final String author, final String text) {
+    public Comment(final String author, final String text) {
         this.text = text;
         this.author = author;
         this.createdDate = new Date();

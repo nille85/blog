@@ -5,7 +5,8 @@
  */
 package be.nille.blog.dal;
 
-import be.nille.blog.service.Author;
+import be.nille.blog.domain.author.Author;
+import be.nille.blog.domain.author.Name;
 import lombok.Getter;
 import lombok.ToString;
 import org.bson.types.ObjectId;
@@ -42,19 +43,6 @@ public class MgAuthor implements Author  {
 
    
     
-    @Getter
-    @ToString
-    public static class MgName implements Name{
-        
-        private String first;
-        private String last;
-        
-        public MgName(){}
-        
-        public MgName(final String first, final String last){
-            this.first = first;
-            this.last = last;
-        }
-    }
+    
     
 }

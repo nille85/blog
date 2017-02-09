@@ -6,8 +6,8 @@
 package be.nille.blog.web.controller;
 
 
-import be.nille.blog.service.Category;
-import be.nille.blog.service.CategoryService;
+import be.nille.blog.domain.category.Category;
+import be.nille.blog.domain.category.CategoryService;
 import java.util.List;
 
 /**

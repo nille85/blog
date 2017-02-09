@@ -5,9 +5,8 @@
  */
 package be.nille.blog.domain.post;
 
-import be.nille.blog.service.Author;
-import be.nille.blog.service.Category;
-import be.nille.blog.service.Post;
+import be.nille.blog.domain.author.Author;
+import be.nille.blog.domain.category.Category;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +47,7 @@ public class DPost implements Post{
     }
 
     @Override
-    public String getyId() {
+    public String getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -5,15 +5,14 @@
  */
 package be.nille.blog.web;
 
-import be.nille.blog.dal.mongo.morphia.DatastoreFactory;
-import be.nille.blog.service.CategoryService;
-import be.nille.blog.service.PostService;
-import be.nille.blog.service.mongo.MgCategoryService;
-import be.nille.blog.service.mongo.MgPostService;
+import be.nille.blog.domain.category.CategoryService;
+import be.nille.blog.domain.post.PostService;
+import be.nille.blog.mongo.category.MongoCategoryService;
+import be.nille.blog.mongo.post.MongoPostService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
 import lombok.extern.slf4j.Slf4j;
-import org.mongodb.morphia.Datastore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,16 +25,14 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfig {
 
     @Bean
-    public Datastore dataStore() {
+    public MongoDatabase database() {
         final String url = System.getenv("MONGO_URL");
         log.debug("MONGO URL:" + url);
         try {
             MongoClient client = new MongoClient(
                     new MongoClientURI(url)
             );
-            DatastoreFactory factory = new DatastoreFactory();
-            Datastore dataStore = factory.createDataStore(client, "openid-connect");
-            return dataStore;
+            return client.getDatabase("openid-connect");
         } catch (RuntimeException ex) {
             log.error(ex.getMessage());
             throw new RuntimeException(
@@ -44,15 +41,14 @@ public class BeanConfig {
 
     }
     
-    
     @Bean
     public CategoryService categoryService(){
-     return new MgCategoryService(dataStore());
+     return new MongoCategoryService(database().getCollection("category"));
     }
     
     @Bean
     public PostService postService(){
-     return new MgPostService(dataStore());
+     return new MongoPostService(database().getCollection("post"));
     }
 
 }

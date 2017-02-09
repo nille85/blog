@@ -1,7 +1,7 @@
 package be.nille.blog.service.mongo;
 
 import be.nille.blog.dal.MgCategory;
-import be.nille.blog.service.CategoryService;
+import be.nille.blog.domain.category.CategoryService;
 import org.mongodb.morphia.Datastore;
 
 import java.util.List;

@@ -38,7 +38,7 @@ dependencies {
         compile "org.springframework.boot:spring-boot-devtools" 
         compile "org.jtwig:jtwig-spring-boot-starter:5.63"
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-        compile project(':blog-dal')
+        compile project(':blog-mongo-service')
 }
 
 

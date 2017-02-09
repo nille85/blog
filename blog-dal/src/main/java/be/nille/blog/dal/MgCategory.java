@@ -7,7 +7,7 @@ package be.nille.blog.dal;
 
 
 
-import be.nille.blog.service.Category;
+import be.nille.blog.domain.category.Category;
 import lombok.Getter;
 import lombok.ToString;
 import org.bson.types.ObjectId;

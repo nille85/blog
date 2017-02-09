@@ -5,7 +5,7 @@
  */
 package be.nille.blog.mongo.category;
 
-import be.nille.blog.service.Category;
+import be.nille.blog.domain.category.Category;
 import org.bson.Document;
 
 /**
