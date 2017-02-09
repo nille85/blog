@@ -5,13 +5,22 @@
  */
 package be.nille.blog.mongo.post;
 
+import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.post.Comment;
 import be.nille.blog.domain.post.Post;
 import be.nille.blog.domain.post.PostService;
+import be.nille.blog.mongo.category.CategoryFactory;
 import be.nille.blog.service.PageInfo;
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -19,20 +28,34 @@ import java.util.Optional;
  */
 public class MongoPostService implements PostService {
     
+    private final MongoDatabase database;
     private final MongoCollection collection;
     
-    public MongoPostService(final MongoCollection collection){
-        this.collection = collection;
+    public MongoPostService(final MongoDatabase database){
+        this.database = database;
+        this.collection = database.getCollection("post");
     }
 
     @Override
     public List<? extends Post> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FindIterable<Document> iterable = collection.find();
+        List<Post> list = new ArrayList<>();
+        PostFactory factory = new PostFactory(database);
+        iterable.iterator().forEachRemaining(d -> list.add(factory.create(d)));
+        return list;
     }
 
     @Override
     public List<? extends Post> findByPageInfo(PageInfo pageInfo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FindIterable<Document> iterable = collection.find()
+                .skip(pageInfo.getOffset())
+                .limit(pageInfo.getLimit())
+                .sort(new BasicDBObject("createdDate", -1));
+        List<Post> list = new ArrayList<>();
+        PostFactory factory = new PostFactory(database);
+        iterable.iterator().forEachRemaining(d -> list.add(factory.create(d)));
+        return list;
+                
     }
 
     @Override
@@ -47,12 +70,18 @@ public class MongoPostService implements PostService {
 
     @Override
     public long getNumberOfPosts() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return collection.count();
     }
 
     @Override
     public Optional<? extends Post> findPostById(String postId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FindIterable<Document> iterable = collection.find(Filters.eq("id", new ObjectId(postId)));
+        Document first = iterable.first();
+        if(first != null){
+            return Optional.of(new PostFactory(database).create(first));
+        }
+       
+        return Optional.empty();
     }
 
     @Override

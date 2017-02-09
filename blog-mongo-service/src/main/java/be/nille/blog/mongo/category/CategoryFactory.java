@@ -12,6 +12,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -24,27 +27,29 @@ public class CategoryFactory {
 
     public Category create(final Document document) {
         ObjectId objectId = document.getObjectId("_id");
-        Category category = create();
-        try {
-            BeanUtils.setProperty(category, "description", document.getString("description"));
-            return new MCategory(objectId.toHexString(), category);
-        } catch (IllegalAccessException | InvocationTargetException ex) {
-            throw new RuntimeException(ex.toString(), ex);
+        return new MCategory(objectId.toHexString(), new PCategory(document.getString("description")));
+    }
+    
+    @Getter
+    @Setter
+    @ToString
+    private class PCategory implements Category{
+        
+        private String description;
+        
+        public PCategory(final String description){
+            
+            this.description = description;
         }
 
-    }
-
-    private Category create() {
-        try {
-            Class<?> c = Class.forName(DCategory.class.getName());
-            Constructor<?> constructor = c.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            Object category = constructor.newInstance();
-
-            return (Category) category;
-        } catch (IllegalArgumentException | InvocationTargetException | InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException ex) {
-            throw new RuntimeException(ex.toString(), ex);
+        @Override
+        public String getId() {
+            throw new UnsupportedOperationException("Not supported yet."); 
         }
+
+        
+    
     }
+
 
 }
