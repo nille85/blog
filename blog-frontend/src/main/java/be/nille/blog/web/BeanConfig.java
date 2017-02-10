@@ -43,12 +43,12 @@ public class BeanConfig {
     
     @Bean
     public CategoryService categoryService(){
-     return new MongoCategoryService(database().getCollection("category"));
+     return new MongoCategoryService(database());
     }
     
     @Bean
     public PostService postService(){
-     return new MongoPostService(database().getCollection("post"));
+     return new MongoPostService(database());
     }
 
 }

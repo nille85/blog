@@ -20,6 +20,10 @@ public class DAuthor implements Author {
     private final String email;
     private final String password;
     
+    public DAuthor(final Author author){
+        this(author.getName(), author.getEmail(), author.getPassword());
+    }
+    
     public DAuthor(final Name name, final String email, final String password){
         this.name = name;
         this.email = email;

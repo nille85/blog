@@ -5,11 +5,10 @@
  */
 package be.nille.blog.mongo.post;
 
-import be.nille.blog.domain.category.Category;
+
 import be.nille.blog.domain.post.Comment;
 import be.nille.blog.domain.post.Post;
 import be.nille.blog.domain.post.PostService;
-import be.nille.blog.mongo.category.CategoryFactory;
 import be.nille.blog.service.PageInfo;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;

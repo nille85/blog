@@ -37,10 +37,10 @@ public class MongoCategoryServiceTest {
                 new MongoClientURI(url)
         );
         MongoDatabase database = client.getDatabase("openid-connect");
-        MongoCollection collection = database.getCollection("category");
+       
 
         
-        service = new MongoCategoryService(collection);
+        service = new MongoCategoryService(database);
     }
     
     @Test

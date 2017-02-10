@@ -9,6 +9,7 @@ import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.category.CategoryService;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -21,8 +22,8 @@ public class MongoCategoryService implements CategoryService {
     
     private final MongoCollection collection;
     
-    public MongoCategoryService(final MongoCollection collection){
-        this.collection = collection;
+    public MongoCategoryService(final MongoDatabase database){
+        this.collection = database.getCollection("category");
     }
 
  
@@ -30,16 +31,15 @@ public class MongoCategoryService implements CategoryService {
     public List<Category> findAll() {
         FindIterable<Document> iterable = collection.find();
         List<Category> list = new ArrayList<>();
-        CategoryFactory factory = new CategoryFactory();
-        iterable.iterator().forEachRemaining(d -> list.add(factory.create(d)));
+      
+        iterable.iterator().forEachRemaining(d -> list.add(new MCategory(d)));
         return list;
     }
     
     
     public void insert(final Category category){
-        CategoryDocumentFactory factory = new CategoryDocumentFactory();
-        Document document = factory.create(category);
-        collection.insertOne(document);
+        CategoryDocument cDocument = new CategoryDocument(category);
+        collection.insertOne(cDocument.toDocument());
     }
     
 }

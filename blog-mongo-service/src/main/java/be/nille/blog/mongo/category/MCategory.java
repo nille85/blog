@@ -7,6 +7,7 @@ package be.nille.blog.mongo.category;
 
 import be.nille.blog.domain.category.Category;
 import lombok.ToString;
+import org.bson.Document;
 
 
 /**
@@ -16,26 +17,20 @@ import lombok.ToString;
 @ToString
 public class MCategory implements Category {
     
+    private final Document document;
   
-    private final String id;
-    private final Category origin;
-    
-
-    public MCategory(final String id, final Category category){
-        this.id = id;
-        this.origin = category;
+    public MCategory(final Document document){
+        this.document = document;
     }
-    
    
-
     @Override
     public String getId() {
-        return id;
+         return document.getObjectId("_id").toHexString();
     }
 
     @Override
     public String getDescription() {
-        return origin.getDescription();
+        return document.getString("description");
     }
     
 }

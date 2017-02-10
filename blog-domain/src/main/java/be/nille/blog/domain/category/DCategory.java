@@ -18,12 +18,13 @@ public class DCategory implements Category{
     
     private String description;
     
-    private DCategory(){}
+    private DCategory(final Category category){
+        this(category.getDescription());
+    }
     
     public DCategory(final String description){
         this.description = description;
-    }
-    
+    }    
 
     @Override
     public String getId() {
