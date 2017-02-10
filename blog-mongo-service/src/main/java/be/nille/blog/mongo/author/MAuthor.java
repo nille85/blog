@@ -9,6 +9,7 @@ import be.nille.blog.domain.author.Author;
 import be.nille.blog.domain.author.DAuthor;
 import be.nille.blog.domain.author.Name;
 import lombok.ToString;
+import org.bson.Document;
 
 
 /**
@@ -18,33 +19,36 @@ import lombok.ToString;
 @ToString
 public class MAuthor implements Author {
     
-    private final String id;
-    private final Author origin;
+    private final Document document;
     
 
-    public MAuthor(final String id, final Author author){
-        this.id = id;
-        this.origin = author;
+    public MAuthor(final Document document){
+       this.document = document;
     }
 
     @Override
     public String getId() {
-        return id;
+        return document.getObjectId("_id").toHexString();
     }
 
     @Override
     public String getEmail() {
-        return origin.getEmail();
+        return document.getString("email");
     }
 
     @Override
     public String getPassword() {
-        return origin.getPassword();
+        return document.getString("password");
     }
 
     @Override
     public Name getName() {
-        return origin.getName();
+        Document dName = (Document) document.get("name");
+        Name name = null;
+        if(dName != null){
+            name = new Name(dName.getString("first"), dName.getString("last"));
+        }
+        return name;
     }
     
 }

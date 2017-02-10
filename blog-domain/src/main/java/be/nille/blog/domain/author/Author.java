@@ -5,8 +5,6 @@
  */
 package be.nille.blog.domain.author;
 
-import lombok.Getter;
-
 /**
  *
  * @author nholvoet

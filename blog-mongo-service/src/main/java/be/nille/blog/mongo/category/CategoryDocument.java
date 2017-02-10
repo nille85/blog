@@ -12,9 +12,15 @@ import org.bson.Document;
  *
  * @author Niels Holvoet
  */
-public class CategoryDocumentFactory {
+public class CategoryDocument {
     
-    public Document create(final Category category){
+    private final Category category;
+    
+    public CategoryDocument(final Category category){
+        this.category = category;
+    }
+    
+    public Document toDocument(){
         Document document = new Document();
         document.append("description", category.getDescription());
         return document;

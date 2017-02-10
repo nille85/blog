@@ -51,8 +51,8 @@ public class AuthorFactoryTest {
     public void testFetching(){
         FindIterable<Document> iterable = collection.find();
         List<Author> list = new ArrayList<>();
-        AuthorFactory factory = new AuthorFactory();
-        iterable.iterator().forEachRemaining(d -> list.add(factory.create(d)));
+      
+        iterable.iterator().forEachRemaining(d -> list.add(new MAuthor(d)));
         
         list.forEach(a -> log.debug(a.toString()));
     }

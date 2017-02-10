@@ -11,10 +11,9 @@ import be.nille.blog.domain.author.Name;
 import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.category.DCategory;
 import be.nille.blog.domain.post.Content;
-import be.nille.blog.domain.post.DPost;
 import be.nille.blog.domain.post.Post;
-import be.nille.blog.mongo.author.AuthorDocumentFactory;
-import be.nille.blog.mongo.category.CategoryDocumentFactory;
+import be.nille.blog.mongo.author.AuthorDocument;
+import be.nille.blog.mongo.category.CategoryDocument;
 import be.nille.blog.mongo.category.MongoCategoryService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -47,15 +46,7 @@ public class MongoPostServiceTest {
         
         
         
-        /*
-        MgCategory category = new MgCategory("MongoDB");
-        dataStore.save(category);
-        
-        for(int i=1;i<=20;i++){
-            MgPost post = new MgPost(category, author, new Content("title " + i, "text " + i));
-            dataStore.save(post);
-        }
-                */
+       
         
         
     }
@@ -63,13 +54,10 @@ public class MongoPostServiceTest {
     @Test
     public void testInsert(){
         ObjectId author = insertAuthor();
-        //ObjectId category = insertCategory();
         
-        MongoCollection authorCollection = database.getCollection("author");
-       
-      
-        MongoCollection categoryCollection = database.getCollection("category");
-        Category category = new MongoCategoryService(categoryCollection).findAll().get(0);
+        
+        
+        Category category = new MongoCategoryService(database).findAll().get(0);
         log.debug(category.toString());
         
         /*
@@ -85,20 +73,21 @@ public class MongoPostServiceTest {
     
     private ObjectId insertAuthor(){
         MongoCollection authorCollection = database.getCollection("author");
-        AuthorDocumentFactory adf = new AuthorDocumentFactory();
+        
         Author author = new DAuthor(new Name("Jack","TheRipper"),"ripper@ripped.de", "password");
-        Document authorDocument = adf.create(author);
-       
-        authorCollection.insertOne(authorDocument);
-        return ((ObjectId) authorDocument.get("_id"));
+        AuthorDocument aDocument = new AuthorDocument(author);
+        Document document = aDocument.toDocument();
+        authorCollection.insertOne(document);
+        return ((ObjectId) document.get("_id"));
         
     }
     
     private ObjectId insertCategory(){
         MongoCollection categoryCollection = database.getCollection("category");
-        CategoryDocumentFactory cdf = new CategoryDocumentFactory();
         Category category = new DCategory("Lambda Calculus 2");
-        Document categoryDocument = cdf.create(category);
+        CategoryDocument cd = new CategoryDocument(category);
+        
+        Document categoryDocument = cd.toDocument();
         categoryCollection.insertOne(categoryDocument);
         return ((ObjectId) categoryDocument.get("_id"));
     }

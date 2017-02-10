@@ -27,7 +27,16 @@ public class DPost implements Post{
     private Date createdDate;
     
     
-     public DPost(final Category category, final Author author, final Content content) {
+    public DPost(final Post post){
+        this.content = post.getContent();
+        this.category = post.getCategory();
+        this.author = post.getAuthor();
+        this.status = post.getStatus();
+        this.createdDate = post.getCreatedDate();
+        this.comments = post.getComments();
+    }
+    
+    public DPost(final Category category, final Author author, final Content content) {
         this.content = content;
         this.comments = new ArrayList<>();
         this.author = author;
@@ -35,6 +44,8 @@ public class DPost implements Post{
         this.status = Status.DRAFT;
         this.createdDate = new Date();
     }
+    
+    
     
     @Override
     public void publish(){
