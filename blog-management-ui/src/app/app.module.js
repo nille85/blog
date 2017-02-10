@@ -45,7 +45,6 @@
 	      if (nextRoute) {
 	        var protectedRoute = nextRoute.$$route.protected;
 	        $rootScope.protected = protectedRoute;
-	        console.log("Next route is:" + nextRoute.$$route.protected);
 	        if(protectedRoute){
 	        	//check JWT
 	        	if(!Principal.exists()){

@@ -9,7 +9,6 @@
     var vm = this;
    
     vm.save = save;
-    vm.publish = publish;
 
     loadPost();
    
@@ -69,13 +68,6 @@
 
 
 
-    function publish(post){
-      $log.debug("publishing ...");
-      /*PostService.publish(post)
-        .then(function(p){
-            vm.saved = {status : "published"};
-      });*/
-    }
 
 
   }

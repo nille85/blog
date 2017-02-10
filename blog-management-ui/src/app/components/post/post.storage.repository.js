@@ -12,7 +12,7 @@
  
         service.getEntities = getEntities;
         service.processAdd = processAdd;
-        service.publish = publish;
+       
        
         return service;
         
@@ -24,21 +24,7 @@
             return post;
         }
 
-        function publish(post){
-            post.status = 'Published';
-            var index;
-            getEntities().some(function(c,i) {
-                index = i;
-                return c.id == post.id
-            });
-
-          
-            getEntities().splice(index,1,post);
-            var deferred = $q.defer();
-            deferred.resolve(post);
-            return deferred.promise;
-
-        }
+     
  
         function getEntities() {
             if(!$sessionStorage.posts){

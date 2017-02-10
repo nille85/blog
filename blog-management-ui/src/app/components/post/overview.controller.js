@@ -4,8 +4,8 @@
    
   angular.module('blog').controller('OverviewPostCtrl', OverviewPostCtrl);
 
-  OverviewPostCtrl.$inject = ['PostRepository', '$log'];
-  function OverviewPostCtrl(PostRepository, $log) {
+  OverviewPostCtrl.$inject = ['PostRepository', 'PostService', '$log'];
+  function OverviewPostCtrl(PostRepository, PostService, $log) {
     var vm = this;
    
     vm.pageNumber = 1;
@@ -16,6 +16,8 @@
 
     vm.remove = remove;
     vm.loadPosts = loadPosts;
+   
+    vm.loadPostById = loadPostById;
 
 
 
@@ -37,6 +39,15 @@
                 vm.count = count;
               });
     }
+
+
+    function loadPostById(postId){
+      PostService.load(postId, function(loaded){
+          $log.debug(loaded);
+          alert(loaded.id);
+      });
+    }
+
 
 
     function loadPosts(pageNumber,itemsPerPage){
