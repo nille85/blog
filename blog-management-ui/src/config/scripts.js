@@ -9,8 +9,7 @@
 
     
     "app/components/post/overview.controller.js",
-    "app/components/post/add.controller.js",
-    "app/components/post/edit.controller.js",
+    "app/components/post/save.controller.js",
     "app/components/category/overview.controller.js",
     "app/directives/paging.js"
 ]

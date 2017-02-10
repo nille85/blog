@@ -113,7 +113,6 @@
         function update(entity){
            var index;
             
-            //breaks when predicate returns true
             getEntities().some(function(c,i) {
                 index = i;
                 return c.id == entity.id
@@ -145,8 +144,8 @@
 
     angular.module("blog")
         .config(["$provide", function ($provide) {
-            $provide.decorator("CategoryService", StorageDecorator);
-            $provide.decorator("PostService", StorageDecorator);
+            $provide.decorator("CategoryRepository", StorageDecorator);
+            $provide.decorator("PostRepository", StorageDecorator);
     }]);
 
 

@@ -1,4 +1,4 @@
-<div  ng-controller="AddPostCtrl as vm">
+<div  ng-controller="SavePostCtrl as vm">
  <div class="container-fluid">
       <div class="row">
         <!--Left column-->
@@ -7,32 +7,35 @@
         <!--Right column-->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-        	<div class="row" ng-show="vm.added">
+
+
+        	<div class="row" ng-show="vm.saved">
         		<div class="col-md-12">
-        			<div class="alert alert-success" data-ng-show="vm.added" role="alert">
-	                     The new post was added
+        			<div class="alert alert-success" ng-show="vm.saved.status === 'saved'" ng- role="alert">
+	                     The post was saved
+	                 </div>
+	                 <div class="alert alert-success" ng-show="vm.saved.status === 'published'" ng- role="alert">
+	                     The post was published
 	                 </div>
         		</div>
-        		<div class="col-md-12">
-        			<button type="button" ng-click="vm.addAnotherPost()" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-plus"
-                              aria-hidden="true"></span>
-                       Add another one
-                    </button>
-                   
+        		<div class="col-md-12" ng-show="vm.saved">
+        			
+                     <a class="btn btn btn-primary" href="/#!/posts/save/"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new</a>
+                  
+                   	 <a class="btn btn btn-primary" href="/#!/posts/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Overview</a>
         		</div>
         	</div>
 
 
 
-            <div class="row" ng-hide="vm.added">
+            <div class="row" ng-hide="vm.saved">
                 <div class="col-md-12">
 
-		 			<form role="form"  id="addForm" name="addForm" ng-submit="vm.add()" novalidate>
+		 			<form role="form"  id="saveForm" name="saveForm" ng-submit="vm.save()" novalidate>
 		            <div class="form-group">
 		              <label for="txtTitle">Title</label>
 		              <input data-ng-model="vm.post.title" name="title" type="title" class="form-control" id="txtTitle" placeholder="Title" required>
-		              <span style="color:red;" ng-show="addForm['title'].$invalid && addForm['title'].$dirty">
+		              <span style="color:red;" ng-show="saveForm['title'].$invalid && saveForm['title'].$dirty">
                             Title is a required field
                             </span>
 		            </div>
@@ -43,7 +46,7 @@
 		              <select data-ng-model="vm.post.category" name="category" class="form-control" id="lstCategory" required>
 		                 <option ng-repeat="category in vm.categories" value="{{category.id}}">{{category.description}}</option>
 		              </select>
-		               <span style="color:red;" ng-show="addForm['category'].$invalid && addForm['category'].$dirty">
+		               <span style="color:red;" ng-show="saveForm['category'].$invalid && saveForm['category'].$dirty">
                             Category is a required field
                         </span>
 		            </div>
@@ -53,13 +56,13 @@
 		            		   <div class="form-group">
 					              <label for="txtText">Text</label>
 					              <textarea data-ng-model="vm.post.text" name="text" class="form-control" id="txtText" rows="20" required></textarea>
-					              <span style="color:red;" ng-show="addForm['text'].$invalid && addForm['text'].$dirty">
+					              <span style="color:red;" ng-show="saveForm['text'].$invalid && saveForm['text'].$dirty">
                             		Text is a required field
                            		 </span>
 				            	</div>
 		            	</div>
 		            	<div class="col-md-6">
-		            		<label>HTML Preview</label>
+		            		<label>HTML Preview</label> 
 		            
 		            		<div ng-bind-html="vm.post.text | markdown"></div>
 		            			
@@ -71,15 +74,13 @@
 		            <div class="row">
 		            	<div class="col-md-3 pull-left">
 		            		
-			            	
-
-		            		<input type="submit" id="btnAdd" ng-disabled="addForm.$invalid" class="btn btn-primary"  value="Save">
+		            		<input type="submit" id="btnAdd" ng-disabled="saveForm.$invalid" class="btn btn-primary"  value="Save">
 				           
 		            	</div>
 		            	<div class="col-md-3">
 		            		<div class="pull-right">
-		            			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-		            		 	<button type="submit" ng-disabled="addForm.$invalid" class="btn btn-success">Publish</button>
+		            			<a class="btn btn btn-default" href="/#!/posts"> Cancel</a>
+		            		 	<button type="submit" ng-click="vm.publish(vm.post)" ng-disabled="saveForm.$invalid" class="btn btn-success">Publish</button>
 		            		</div>
 		            	</div>
 		            </div>

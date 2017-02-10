@@ -3,10 +3,10 @@
  
     angular
         .module('blog')
-        .factory('CategoryService', CategoryService);
+        .factory('CategoryRepository', CategoryRepository);
  
-    CategoryService.$inject = ['$sessionStorage','$log'];
-    function CategoryService($sessionStorage, $log) {
+    CategoryRepository.$inject = ['$sessionStorage','$log'];
+    function CategoryRepository($sessionStorage, $log) {
  
         var service = {};
  

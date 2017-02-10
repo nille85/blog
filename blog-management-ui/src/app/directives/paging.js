@@ -30,8 +30,6 @@
 			            return(scope.pageNumber);
 			        },
 			        function handleChange( newPage, oldPage ) {
-
-			            alert("loading a new page: " +newPage);
 			            scope.pageFunction(scope.pageNumber, scope.itemsPerPage)
 			            .then(function(entities){
 			                scope.entities = entities;

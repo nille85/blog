@@ -20,12 +20,8 @@
 	        templateUrl: 'app/components/post/overview.html',
 	        protected: true
 	      })
-	      .when('/posts/edit/:postId', {
-	        templateUrl: 'app/components/post/edit.html',
-	        protected: true
-	      })
-	      .when('/posts/add', {
-	        templateUrl: 'app/components/post/add.html',
+	      .when('/posts/save/:postId?', {
+	        templateUrl: 'app/components/post/save.html',
 	        protected: true
 	      })
 	      .when('/categories', {
