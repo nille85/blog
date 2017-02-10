@@ -96,12 +96,12 @@
                 <h4 class="modal-title" id="gridSystemModalLabel">Preview Content</h4>
             </div>
             <div class="modal-body">
-                <h1>{{vm.postService.get().title}}</h1>
-                <ng-bind-html  ng-bind-html="vm.postService.get().markdown"></ng-bind-html>
+                <h1>{{vm.post.title}}</h1>
+                <ng-bind-html  ng-bind-html="vm.post.markdown"></ng-bind-html>
                
             </div>
             <div class="modal-footer">
-                 <button type="button" data-dismiss="modal" ng-click="vm.postService.publish()" class="btn btn-primary">
+                 <button type="button" data-dismiss="modal" ng-click="vm.publish()" class="btn btn-primary">
                  Publish</button>
             </div>
         </div>

@@ -15,6 +15,12 @@
         service.publish = publish;
         service.load = load;
         service.get = get;
+
+        var observerCallbacks = [];
+        service.registerObserverCallback = function(callback){
+            observerCallbacks.push(callback);
+        };
+
        
         return service;
         
@@ -23,8 +29,17 @@
              PostRepository.findById(postId)
                 .then(function(p){
                     post = p;
+                    notifyObservers();
+                 
             });
         }
+
+        function notifyObservers(){
+            angular.forEach(observerCallbacks, function(callback){
+                $log.debug("notify observer:",callback);
+              callback();
+            });
+          }
 
         function get(){
             return post;
@@ -35,10 +50,17 @@
             PostRepository.update(post)
                 .then(function(updatedPost){
                     $log.debug("published, coming from repository",updatedPost);
+                    notifyObservers();
                     return updatedPost;
             });
 
         }
+
+
+
+      
+     
+      
         
     }
 })();

@@ -19,19 +19,27 @@
    
     vm.loadPostById = loadPostById;
 
+    PostService.registerObserverCallback(reload);
+
 
 
     function remove(post){
       $log.debug("removing post", post);
       PostRepository.remove(post)
         .then(function(success){
-         
-          loadPosts(vm.pageNumber, vm.itemsPerPage)
+          reload();
+        });
+        
+    }
+
+    function reload(){
+        loadPosts(vm.pageNumber, vm.itemsPerPage)
            .then(function(posts){
               vm.posts = posts;
            });
-        });
     }
+    
+    
 
     function getCount(){
       PostRepository.getTotalCount()
