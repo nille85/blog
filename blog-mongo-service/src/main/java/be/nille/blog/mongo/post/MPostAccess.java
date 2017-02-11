@@ -9,9 +9,12 @@ import be.nille.blog.domain.author.Author;
 import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.post.Comment;
 import be.nille.blog.domain.post.Content;
-import be.nille.blog.domain.post.Post;
-import be.nille.blog.mongo.author.MAuthor;
-import be.nille.blog.mongo.category.MCategory;
+
+import be.nille.blog.domain.post.Post.Status;
+import be.nille.blog.domain.post.PostAccess;
+import be.nille.blog.mongo.author.MAuthorAccess;
+
+import be.nille.blog.mongo.category.MCategoryAccess;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -27,12 +30,12 @@ import org.bson.types.ObjectId;
  *
  * @author Niels Holvoet
  */
-public class MPost implements Post {
+public class MPostAccess implements PostAccess {
     
     private final Document document;
     private final MongoDatabase database;
     
-    public MPost(final Document document,  final MongoDatabase database){
+    public MPostAccess(final Document document,  final MongoDatabase database){
         this.document = document;
         this.database = database;
     }
@@ -49,7 +52,7 @@ public class MPost implements Post {
         FindIterable<Document> iterable = authorCollection.find(Filters.eq("_id", authorObjectId));
         Document first = iterable.first();
         if(first != null){
-           return new MAuthor(first);
+           return new Author(new MAuthorAccess(first));
         }
         return null;
     }
@@ -71,7 +74,7 @@ public class MPost implements Post {
         FindIterable<Document> iterable = categoryCollection.find(Filters.eq("_id", categoryObjectId));
         Document first = iterable.first();
         if(first != null){
-           return new MCategory(first);
+           return new Category(new MCategoryAccess(first));
         }
         return null;
     }
@@ -91,24 +94,13 @@ public class MPost implements Post {
 
     @Override
     public Status getStatus() {
-        return document.get("status", Status.class);
+       
+        return Status.valueOf(document.getString("status"));
     }
 
     @Override
     public Date getCreatedDate() {
         return document.getDate("createdDate");
     }
-
-    @Override
-    public void publish() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addComment(Comment comment) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
     
 }

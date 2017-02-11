@@ -6,25 +6,32 @@
 package be.nille.blog.mongo.post;
 
 import be.nille.blog.domain.author.Author;
-import be.nille.blog.domain.author.DAuthor;
+import be.nille.blog.domain.author.Author;
+import be.nille.blog.domain.author.AuthorService;
 import be.nille.blog.domain.author.Name;
 import be.nille.blog.domain.category.Category;
-import be.nille.blog.domain.category.DCategory;
+import be.nille.blog.domain.category.Category;
+import be.nille.blog.domain.category.CategoryService;
 import be.nille.blog.domain.post.Content;
 import be.nille.blog.domain.post.Post;
+import be.nille.blog.domain.post.PostService;
 import be.nille.blog.mongo.author.AuthorDocument;
+import be.nille.blog.mongo.author.MongoAuthorService;
 import be.nille.blog.mongo.category.CategoryDocument;
 import be.nille.blog.mongo.category.MongoCategoryService;
+import be.nille.blog.service.PageInfo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -43,53 +50,35 @@ public class MongoPostServiceTest {
                 new MongoClientURI(url)
         );
         database = client.getDatabase("openid-connect");
-        
-        
-        
        
-        
         
     }
     
     @Test
-    public void testInsert(){
-        ObjectId author = insertAuthor();
+    public void findByPage(){
+        PostService postService = new MongoPostService(database);
+        List<Post> posts = postService.findByPageInfo(new PageInfo(10));
+        posts.forEach(p -> log.debug(p.toString()));
+
+    }
+    
+    @Ignore
+    public void testSave(){
+        AuthorService authorService = new MongoAuthorService(database);
+        CategoryService categoryService = new MongoCategoryService(database);
+        PostService postService = new MongoPostService(database);
         
-        
-        
-        Category category = new MongoCategoryService(database).findAll().get(0);
+        Author author = authorService.save(new Author(new Name("Jack","TheRipper"),"ripper@ripped.de", "password"));
+        log.debug(author.toString());
+        Category category = categoryService.save(new Category("OracleDd"));
         log.debug(category.toString());
-        
-        /*
         for(int i=1;i<=20;i++){
-            Post post = new DPost(category, author, new Content("title " + i, "text " + i));
-            dataStore.save(post);
+            Post post = new Post(category, author, new Content("title " + i, "text " + i));
+            Post saved = postService.save(post);
+            log.debug(saved.toString());
         }
-        */
-        
-        
-        
+          
     }
     
-    private ObjectId insertAuthor(){
-        MongoCollection authorCollection = database.getCollection("author");
-        
-        Author author = new DAuthor(new Name("Jack","TheRipper"),"ripper@ripped.de", "password");
-        AuthorDocument aDocument = new AuthorDocument(author);
-        Document document = aDocument.toDocument();
-        authorCollection.insertOne(document);
-        return ((ObjectId) document.get("_id"));
-        
-    }
-    
-    private ObjectId insertCategory(){
-        MongoCollection categoryCollection = database.getCollection("category");
-        Category category = new DCategory("Lambda Calculus 2");
-        CategoryDocument cd = new CategoryDocument(category);
-        
-        Document categoryDocument = cd.toDocument();
-        categoryCollection.insertOne(categoryDocument);
-        return ((ObjectId) categoryDocument.get("_id"));
-    }
-    
+   
 }

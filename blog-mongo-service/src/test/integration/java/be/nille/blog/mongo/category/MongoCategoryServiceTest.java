@@ -6,7 +6,7 @@
 package be.nille.blog.mongo.category;
 
 import be.nille.blog.mongo.category.MongoCategoryService;
-import be.nille.blog.domain.category.DCategory;
+import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.category.Category;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -53,7 +53,7 @@ public class MongoCategoryServiceTest {
     @Ignore
     public void testSaving(){
         try{
-            service.insert(new DCategory("Databases"));
+            service.save(new Category("Databases"));
         }catch(MongoException ex){
             log.error(ex.getMessage());
         }

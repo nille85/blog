@@ -6,6 +6,7 @@
 package be.nille.blog.mongo.category;
 
 import be.nille.blog.domain.category.Category;
+import be.nille.blog.domain.category.CategoryAccess;
 import lombok.ToString;
 import org.bson.Document;
 
@@ -15,11 +16,11 @@ import org.bson.Document;
  * @author Niels Holvoet
  */
 @ToString
-public class MCategory implements Category {
+public class MCategoryAccess implements CategoryAccess {
     
     private final Document document;
   
-    public MCategory(final Document document){
+    public MCategoryAccess(final Document document){
         this.document = document;
     }
    

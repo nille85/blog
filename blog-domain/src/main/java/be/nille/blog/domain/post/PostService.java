@@ -6,11 +6,8 @@
 package be.nille.blog.domain.post;
 
 
-import be.nille.blog.domain.post.Comment;
-import be.nille.blog.domain.post.Post;
 import be.nille.blog.service.PageInfo;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
@@ -18,17 +15,17 @@ import java.util.Optional;
  */
 public interface PostService {
     
-    List<? extends Post> findAll();
+    List<Post> findAll();
     
-    List<? extends Post> findByPageInfo(final PageInfo pageInfo);
+    List<Post> findByPageInfo(final PageInfo pageInfo);
     
-    List<? extends Post> findPostsByCategory(final String categoryId);
+    List<Post> findPostsByCategory(final String categoryId);
     
-    List<? extends Post> fullTextPostSearch(final String searchValue);
+    List<Post> fullTextPostSearch(final String searchValue);
     
     long getNumberOfPosts();
     
-    Optional<? extends Post> findPostById(final String postId);
+    Post findPostById(final String postId);
     
-    Post addCommentToPostWithId(Comment comment, final String postId);
+    Post save(Post post);
 }

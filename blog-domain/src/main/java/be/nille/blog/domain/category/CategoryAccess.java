@@ -5,17 +5,13 @@
  */
 package be.nille.blog.domain.category;
 
-import java.util.List;
-
 /**
  *
- * @author nholvoet
+ * @author Niels Holvoet
  */
-public interface CategoryService {
+public interface CategoryAccess {
     
-    List<Category> findAll();
+    String getId();
     
-    Category findById(String categoryId);
-    
-    Category save(Category category);
+    String getDescription();
 }

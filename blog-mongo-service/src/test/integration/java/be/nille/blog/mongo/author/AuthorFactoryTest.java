@@ -8,7 +8,7 @@ package be.nille.blog.mongo.author;
 import be.nille.blog.domain.author.Author;
 import be.nille.blog.mongo.category.*;
 import be.nille.blog.mongo.category.MongoCategoryService;
-import be.nille.blog.domain.category.DCategory;
+import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.category.Category;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -52,7 +52,7 @@ public class AuthorFactoryTest {
         FindIterable<Document> iterable = collection.find();
         List<Author> list = new ArrayList<>();
       
-        iterable.iterator().forEachRemaining(d -> list.add(new MAuthor(d)));
+        iterable.iterator().forEachRemaining(d -> list.add(new Author(new MAuthorAccess(d))));
         
         list.forEach(a -> log.debug(a.toString()));
     }

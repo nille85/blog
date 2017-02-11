@@ -5,8 +5,7 @@
  */
 package be.nille.blog.mongo.author;
 
-import be.nille.blog.domain.author.Author;
-import be.nille.blog.domain.author.DAuthor;
+import be.nille.blog.domain.author.AuthorAccess;
 import be.nille.blog.domain.author.Name;
 import lombok.ToString;
 import org.bson.Document;
@@ -17,12 +16,12 @@ import org.bson.Document;
  * @author Niels Holvoet
  */
 @ToString
-public class MAuthor implements Author {
+public class MAuthorAccess implements AuthorAccess {
     
     private final Document document;
     
 
-    public MAuthor(final Document document){
+    public MAuthorAccess(final Document document){
        this.document = document;
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.domain.category;
+package be.nille.blog.domain.author;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
  *
  * @author nholvoet
  */
-public interface CategoryService {
+public interface AuthorService {
     
-    List<Category> findAll();
+    List<Author> findAll();
     
-    Category findById(String categoryId);
+    Author findById(String authorId);
     
-    Category save(Category category);
+    Author save(Author author);
 }

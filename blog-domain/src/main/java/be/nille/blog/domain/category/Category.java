@@ -5,14 +5,32 @@
  */
 package be.nille.blog.domain.category;
 
+import lombok.Getter;
+import lombok.ToString;
+
 /**
  *
- * @author nholvoet
+ * @author Niels Holvoet
  */
-public interface Category {
+@Getter
+@ToString
+public class Category{
     
-    String getId();
+    private String id;
+    private String description;
     
-    String getDescription();
+    public Category(final CategoryAccess categoryAccess){
+        this(categoryAccess.getDescription());
+        this.id = categoryAccess.getId();
+    }
+    
+    public Category(final String description){
+        this.id = null;
+        this.description = description;
+    }    
+
+    
+    
+    
     
 }

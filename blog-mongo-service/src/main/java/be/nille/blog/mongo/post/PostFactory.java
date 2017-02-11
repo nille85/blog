@@ -5,7 +5,7 @@
  */
 package be.nille.blog.mongo.post;
 
-import be.nille.blog.domain.post.DPost;
+import be.nille.blog.domain.post.Post;
 import be.nille.blog.domain.post.Post;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -24,7 +24,7 @@ public class PostFactory {
     
   
     public Post create(final Document document) {
-        return new DPost(new MPost(document,database));
+        return new Post(new MPostAccess(document,database));
     }
    
 }

@@ -7,6 +7,7 @@ import be.nille.blog.domain.category.CategoryService;
 import be.nille.blog.domain.post.Post;
 import be.nille.blog.domain.post.Comment;
 import be.nille.blog.domain.post.PostService;
+import be.nille.blog.mongo.MongoServiceException;
 
 
 
@@ -29,16 +30,19 @@ public final class PostDetailPage extends BlogPage {
     }
 
     public Post getPost(){
-        Post post = postService.findPostById(postId)
-                .orElseThrow(() -> new RuntimeException(
-                        String.format("Post with id %s could not be found",postId))
-        );
-        return post;
+        try{
+            return postService.findPostById(postId);                
+        }catch(MongoServiceException ex){
+             throw new RuntimeException(String.format("Post with id %s could not be found",postId), ex);
+        }
     }
     
     public Post addComment(final Comment comment){
-        Post post = postService.addCommentToPostWithId(comment, postId);
-        return post;
+       
+         Post post = getPost();
+         post.addComment(comment);
+         return postService.save(post);                
+      
     }
 
 }

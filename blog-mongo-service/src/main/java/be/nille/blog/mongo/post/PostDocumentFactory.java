@@ -39,7 +39,7 @@ public class PostDocumentFactory {
         List<Comment> comments = post.getComments();
         document.append("comments", createCommentsDocuments(comments));
                
-        document.append("status", post.getStatus());
+        document.append("status", post.getStatus().toString());
         document.append("createdDate", post.getCreatedDate());
         return document;
     }
