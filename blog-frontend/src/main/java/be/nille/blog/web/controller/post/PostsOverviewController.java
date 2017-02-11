@@ -37,14 +37,14 @@ public class PostsOverviewController {
     @RequestMapping("/")
     public String indexAction (ModelMap model) {
         PageInfo pageInfo = new PageInfo(postService.getNumberOfPosts());
-        model.put("page", new PostsPage(postService.findByPageInfo(pageInfo), categoryService.findAll()));
+        model.put("page", new PostsPage(postService.findByPageInfo(pageInfo), categoryService.findAll(), pageInfo));
         return "blog/index";
     }
 
     @RequestMapping("/page/{pageId}")
     public String pageAction (ModelMap model,@PathVariable(name = "pageId") final int pageId) {
         PageInfo pageInfo = new PageInfo(pageId,10,postService.getNumberOfPosts());
-        model.put("page", new PostsPage(postService.findByPageInfo(pageInfo), categoryService.findAll()));
+        model.put("page", new PostsPage(postService.findByPageInfo(pageInfo), categoryService.findAll(), pageInfo));
         return "blog/index";
     }
     

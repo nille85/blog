@@ -39,7 +39,7 @@ public class CategoryController {
         List<Category> categories = categoryService.findAll();
         List<Post> posts = postService.findPostsByCategory(categoryId);
         
-        model.put("page", new PostsPage(posts, categories));
+        model.put("page", new PostsPage(posts, categories, null));
         return "blog/index";
     }
     

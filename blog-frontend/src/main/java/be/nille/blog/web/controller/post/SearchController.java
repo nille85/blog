@@ -42,7 +42,7 @@ public class SearchController {
         List<Category> categories = categoryService.findAll();
         List<Post> posts = postService.fullTextPostSearch(searchValue);
         
-        model.put("page", new PostsPage(posts, categories));
+        model.put("page", new PostsPage(posts, categories, null));
         return "blog/index";
     }
 }
