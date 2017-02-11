@@ -67,7 +67,7 @@ public class MongoPostService implements PostService {
 
     @Override
     public List<Post> findPostsByCategory(String categoryId) {
-        Bson filter = Filters.eq("category", categoryId);
+        Bson filter = Filters.eq("category", new ObjectId(categoryId));
         return getPostsByIterable(collection.find(filter));
       
     }
