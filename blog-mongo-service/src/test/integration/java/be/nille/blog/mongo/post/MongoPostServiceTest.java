@@ -12,6 +12,7 @@ import be.nille.blog.domain.author.Name;
 import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.category.CategoryService;
+import be.nille.blog.domain.post.Comment;
 import be.nille.blog.domain.post.Content;
 import be.nille.blog.domain.post.Post;
 import be.nille.blog.domain.post.PostService;
@@ -63,6 +64,16 @@ public class MongoPostServiceTest {
     }
     
     @Ignore
+    public  void addComment(){
+        PostService postService = new MongoPostService(database);
+        Post post = postService.findPostById("589f1de7df69b218cc340654");
+        log.debug(post.toString());
+        post.addComment(new Comment("Jack", "does this work?"));
+        Post updated = postService.save(post);
+        log.debug(updated.toString());
+    }
+    
+    @Ignore
     public void testSave(){
         AuthorService authorService = new MongoAuthorService(database);
         CategoryService categoryService = new MongoCategoryService(database);
@@ -74,6 +85,7 @@ public class MongoPostServiceTest {
         log.debug(category.toString());
         for(int i=1;i<=20;i++){
             Post post = new Post(category, author, new Content("title " + i, "text " + i));
+            post.addComment(new Comment("tester","my comment"));
             Post saved = postService.save(post);
             log.debug(saved.toString());
         }

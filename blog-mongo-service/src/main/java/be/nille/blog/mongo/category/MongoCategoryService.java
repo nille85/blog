@@ -25,47 +25,45 @@ import org.bson.types.ObjectId;
  * @author Niels Holvoet
  */
 public class MongoCategoryService implements CategoryService {
-    
+
     private final MongoCollection collection;
-    
-    public MongoCategoryService(final MongoDatabase database){
+
+    public MongoCategoryService(final MongoDatabase database) {
         this.collection = database.getCollection("category");
     }
 
- 
     @Override
     public List<Category> findAll() {
         FindIterable<Document> iterable = collection.find();
         List<Category> list = new ArrayList<>();
-      
+
         iterable.iterator().forEachRemaining(d -> list.add(new Category(new MCategoryAccess(d))));
         return list;
     }
-    
 
     @Override
     public Category findById(String categoryId) {
         FindIterable<Document> iterable = collection.find(Filters.eq("_id", new ObjectId(categoryId)));
         Document first = iterable.first();
-        if(first != null){
+        if (first != null) {
             return new Category(new MCategoryAccess(first));
         }
-       
+
         throw new MongoServiceException(String.format("Could not find category with id %s", categoryId));
-       
+
     }
 
     @Override
     public Category save(Category category) {
-        Document document =  new CategoryDocument(category).toDocument();
-        if(category.getId() == null){
-             collection.insertOne(document);
-        }else{
-             Bson filter = Filters.eq("_id", new ObjectId(category.getId()));
-             collection.updateOne(filter, document);
+        Document document = new CategoryDocument(category).toDocument();
+        if (category.getId() == null) {
+            collection.insertOne(document);
+            return new Category(new MCategoryAccess(document));
         }
-        return new Category(new MCategoryAccess(document));
-        
+        Bson filter = Filters.eq("_id", new ObjectId(category.getId()));
+        collection.replaceOne(filter, document);
+        return category;
+
     }
-    
+
 }

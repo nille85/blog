@@ -38,7 +38,6 @@ public class BeanConfig {
             throw new RuntimeException(
                     String.format("Could not connect to Mongo Database with URL %s", url));
         }
-
     }
     
     @Bean

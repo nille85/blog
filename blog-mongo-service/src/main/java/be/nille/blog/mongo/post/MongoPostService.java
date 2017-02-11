@@ -19,9 +19,11 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -30,6 +32,7 @@ import org.bson.types.ObjectId;
  *
  * @author Niels Holvoet
  */
+@Slf4j
 public class MongoPostService implements PostService {
     
     private final MongoDatabase database;
@@ -106,12 +109,12 @@ public class MongoPostService implements PostService {
         Document document =  new PostDocumentFactory().create(post);
         if(post.getId() == null){
              collection.insertOne(document);
-        }else{
-             Bson filter = Filters.eq("_id", new ObjectId(post.getId()));
-             collection.updateOne(filter, document);
+             return new Post(new MPostAccess(document,database));
         }
-        return new Post(new MPostAccess(document,database));
-      
+        Bson filter = Filters.eq("_id", new ObjectId(post.getId()));
+        collection.replaceOne(filter, document);
+        return post;
+        
     }
     
 }

@@ -25,47 +25,46 @@ import org.bson.types.ObjectId;
  *
  * @author Niels Holvoet
  */
-public class MongoAuthorService implements AuthorService{
+public class MongoAuthorService implements AuthorService {
 
     private final MongoCollection collection;
-    
-    public MongoAuthorService(final MongoDatabase database){
+
+    public MongoAuthorService(final MongoDatabase database) {
         this.collection = database.getCollection("author");
     }
 
- 
     @Override
     public List<Author> findAll() {
         FindIterable<Document> iterable = collection.find();
         List<Author> list = new ArrayList<>();
-      
+
         iterable.iterator().forEachRemaining(d -> list.add(new Author(new MAuthorAccess(d))));
         return list;
     }
-    
 
     @Override
     public Author findById(String authorId) {
         FindIterable<Document> iterable = collection.find(Filters.eq("_id", new ObjectId(authorId)));
         Document first = iterable.first();
-        if(first != null){
+        if (first != null) {
             return new Author(new MAuthorAccess(first));
         }
-       
+
         throw new MongoServiceException(String.format("Could not find author with id %s", authorId));
-       
+
     }
 
     @Override
     public Author save(Author author) {
-        Document document =  new AuthorDocument(author).toDocument();
-        if(author.getId() == null){
-             collection.insertOne(document);
-        }else{
-             Bson filter = Filters.eq("_id", new ObjectId(author.getId()));
-             collection.updateOne(filter, document);
+        Document document = new AuthorDocument(author).toDocument();
+        if (author.getId() == null) {
+            collection.insertOne(document);
+            return new Author(new MAuthorAccess(document));
         }
-        return new Author(new MAuthorAccess(document));
+        Bson filter = Filters.eq("_id", new ObjectId(author.getId()));
+        collection.replaceOne(filter, document);
+        return author;
+
     }
-    
+
 }
