@@ -15,20 +15,19 @@ import org.jtwig.JtwigTemplate;
  */
 public class TwoColumnPage implements Component {
     
-    private final Placeholder left;
-    private final Placeholder right;
+    private final Component left;
+    private final Component right;
     
-    public TwoColumnPage(final Placeholder left, final Placeholder right){
+    public TwoColumnPage(final Component left, final Component right){
         this.left = left;
         this.right = right;
     }   
 
     @Override
     public String render() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/widgets/page.twig");
-        JtwigModel twigModel = JtwigModel.newModel().with("rightColumn", right.render())
-                .with("leftColumn", left.render());
-     
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/page/page.twig");
+        JtwigModel twigModel = JtwigModel.newModel().with("right", right.render())
+                .with("left", left.render());
         String html = template.render(twigModel);
         return html;
     }

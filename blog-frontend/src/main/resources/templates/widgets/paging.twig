@@ -1,0 +1,8 @@
+<ul class="pager">
+    {% if pageInfo.hasPrevious() %}
+    <li class="previous"><a href="{{basePath}}/{{pageInfo.pageNumber - 1}}">Previous</a></li>
+    {% endif %}
+    {% if pageInfo.hasNext() %}
+    <li class="next"><a href="{{basePath}}/{{pageInfo.pageNumber + 1}}">Next</a></li>
+    {% endif %}
+</ul>

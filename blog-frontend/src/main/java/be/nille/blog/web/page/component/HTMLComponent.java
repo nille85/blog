@@ -5,7 +5,7 @@
  */
 package be.nille.blog.web.page.component;
 
-import be.nille.blog.web.page.TemplateModel;
+import be.nille.blog.web.page.template.TemplateModel;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 

@@ -5,37 +5,32 @@
  */
 package be.nille.blog.web.page.placeholder;
 
-import be.nille.blog.domain.category.CategoryService;
-import be.nille.blog.web.page.Placeholder;
-import be.nille.blog.web.page.TemplateModel;
+import be.nille.blog.domain.category.Category;
+import be.nille.blog.web.page.component.CompositeComponent;
+import be.nille.blog.web.page.template.TemplateModel;
 import be.nille.blog.web.page.component.Component;
 import be.nille.blog.web.page.component.HTMLComponent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import java.util.List;
 
 /**
  *
  * @author Niels Holvoet
  */
-@org.springframework.stereotype.Component
-@Scope(value="request", proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class WidgetPlaceholder implements Component {
     
-    private final CategoryService categoryService;
+    private final List<Category> categories;
     
-    @Autowired
-    public WidgetPlaceholder(final CategoryService categoryService){
-        this.categoryService = categoryService;
+    public WidgetPlaceholder(final List<Category> categories){
+        this.categories = categories;
     }
 
     @Override
     public String render() {
-        Placeholder widgets =  new Placeholder()
+        CompositeComponent widgets =  new CompositeComponent()
                 .addComponent(new HTMLComponent("templates/widgets/search.twig"))
                 .addComponent(
                     new HTMLComponent("templates/widgets/categories.twig", 
-                    new TemplateModel("categories",categoryService.findAll())
+                    new TemplateModel("categories",categories)
                 )
         );
         return widgets.render();

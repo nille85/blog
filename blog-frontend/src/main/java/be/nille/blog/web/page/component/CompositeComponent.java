@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.blog.web.page;
+package be.nille.blog.web.page.component;
 
-import be.nille.blog.web.page.component.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +12,15 @@ import java.util.List;
  *
  * @author Niels Holvoet
  */
-public class Placeholder implements Component {
+public class CompositeComponent implements Component {
     
     public List<Component> components;
     
-    public Placeholder(){
+    public CompositeComponent(){
         components = new ArrayList<>();
     }
     
-    public Placeholder addComponent(final Component component){
+    public CompositeComponent addComponent(final Component component){
         this.components.add(component);
         return this;
     }

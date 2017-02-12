@@ -5,19 +5,27 @@
  */
 package be.nille.blog.web.controller.post;
 
+import be.nille.blog.domain.category.Category;
 import be.nille.blog.domain.category.CategoryService;
 import be.nille.blog.domain.post.Comment;
 import be.nille.blog.domain.post.Post;
 import be.nille.blog.domain.post.PostService;
 import be.nille.blog.mongo.MongoServiceException;
+import be.nille.blog.web.page.TwoColumnPage;
+import be.nille.blog.web.page.placeholder.PostDetailPlaceholder;
+import be.nille.blog.web.page.placeholder.PostsPlaceholder;
+import be.nille.blog.web.page.placeholder.WidgetPlaceholder;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -36,27 +44,36 @@ public class PostDetailController {
         this.postService = postService;
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/posts/{postId}")
-    public String postDetailAction (ModelMap model, @PathVariable(name = "postId") final String postId) {
-     
-        model.put("page", new PostDetailPage(getPost(postId),categoryService.findAll()));
-        return "blog/post";
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/{postId}", produces = MediaType.TEXT_HTML_VALUE)
+    @ResponseBody
+    public String postDetailAction (@PathVariable(name = "postId") final String postId) {
+        return renderPage(getPost(postId), categoryService.findAll());
+       
     }
     
-    @RequestMapping(method = RequestMethod.POST, value = "/posts/{postId}")
-    public String postCommentAction (ModelMap model, @PathVariable(name = "postId") final String postId, @ModelAttribute AddCommentCommand addComment) {
+    @RequestMapping(method = RequestMethod.POST, value = "/posts/{postId}", produces = MediaType.TEXT_HTML_VALUE)
+    @ResponseBody
+    public String postCommentAction (@PathVariable(name = "postId") final String postId, @ModelAttribute AddCommentCommand addComment) {
         Post post = getPost(postId);
         log.debug(post.toString());
         post.addComment(new Comment(addComment.getAuthor(), addComment.getComment()));
         Post updated = postService.save(post);
-        log.debug(updated.toString());
-        model.put("page", new PostDetailPage(updated, categoryService.findAll()));
-        return "blog/post";
+        return renderPage(updated, categoryService.findAll());
+    }
+    
+    private String renderPage(final Post post, final List<Category> categories){
+            return new TwoColumnPage(
+                new PostDetailPlaceholder(post), 
+                new WidgetPlaceholder(categories)
+        ).render();
+       
     }
     
     private Post getPost(final String postId){
         try{
-            return postService.findPostById(postId);                
+            Post post = postService.findPostById(postId);
+            return post;
+       
         }catch(MongoServiceException ex){
              throw new RuntimeException(String.format("Post with id %s could not be found",postId), ex);
         }
