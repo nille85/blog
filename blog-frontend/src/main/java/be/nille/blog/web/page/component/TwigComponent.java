@@ -13,18 +13,16 @@ import org.jtwig.JtwigTemplate;
  *
  * @author Niels Holvoet
  */
-public class HTMLComponent implements Component {
+public class TwigComponent implements Component {
     
     private final String templateLocation;
-    private final TemplateModel model;
+    private final TemplateModel[] models;
     
-    public HTMLComponent(final String templateLocation){
-        this(templateLocation, null);
-    }
+  
     
-    public HTMLComponent(final String templateLocation, final TemplateModel model){
+    public TwigComponent(final String templateLocation, final TemplateModel ... models){
         this.templateLocation = templateLocation;
-        this.model = model;
+        this.models = models;
     }
     
     
@@ -32,8 +30,11 @@ public class HTMLComponent implements Component {
     public String render(){
         JtwigTemplate template = JtwigTemplate.classpathTemplate(templateLocation);
         JtwigModel twigModel = null;
-        if(model != null){
-            twigModel = JtwigModel.newModel().with(model.getName(), model.getValue());
+        if(models != null){
+            twigModel = JtwigModel.newModel();
+            for(TemplateModel model : models){
+                twigModel.with(model.getName(), model.getValue());
+            }     
         }
         String html = template.render(twigModel);
         return html;

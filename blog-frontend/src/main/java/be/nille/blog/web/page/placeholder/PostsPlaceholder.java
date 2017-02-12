@@ -9,7 +9,7 @@ import be.nille.blog.domain.post.Post;
 import be.nille.blog.web.page.template.TemplateModel;
 import be.nille.blog.web.page.component.Component;
 import be.nille.blog.web.page.component.CompositeComponent;
-import be.nille.blog.web.page.component.HTMLComponent;
+import be.nille.blog.web.page.component.TwigComponent;
 import java.util.List;
 
 /**
@@ -27,8 +27,7 @@ public class PostsPlaceholder implements Component{
     @Override
     public String render() {
         CompositeComponent placeholder =  new CompositeComponent()             
-                .addComponent(
-                    new HTMLComponent("templates/placeholder/posts_left.twig", 
+                .addComponent(new TwigComponent("templates/placeholder/posts_left.twig", 
                     new TemplateModel("posts", posts)
                 )
         );

@@ -6,6 +6,8 @@
 package be.nille.blog.web.page;
 
 import be.nille.blog.web.page.component.Component;
+import be.nille.blog.web.page.component.TwigComponent;
+import be.nille.blog.web.page.template.TemplateModel;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -25,10 +27,10 @@ public class TwoColumnPage implements Component {
 
     @Override
     public String render() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/page/page.twig");
-        JtwigModel twigModel = JtwigModel.newModel().with("right", right.render())
-                .with("left", left.render());
-        String html = template.render(twigModel);
-        return html;
+        final TemplateModel[] models = new TemplateModel[]{
+            new TemplateModel("right", right.render()),
+            new TemplateModel("left", left.render())
+        };
+        return new TwigComponent("templates/page/page.twig", models).render(); 
     }
 }

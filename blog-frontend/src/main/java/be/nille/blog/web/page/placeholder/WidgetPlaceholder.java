@@ -9,7 +9,7 @@ import be.nille.blog.domain.category.Category;
 import be.nille.blog.web.page.component.CompositeComponent;
 import be.nille.blog.web.page.template.TemplateModel;
 import be.nille.blog.web.page.component.Component;
-import be.nille.blog.web.page.component.HTMLComponent;
+import be.nille.blog.web.page.component.TwigComponent;
 import java.util.List;
 
 /**
@@ -27,9 +27,8 @@ public class WidgetPlaceholder implements Component {
     @Override
     public String render() {
         CompositeComponent widgets =  new CompositeComponent()
-                .addComponent(new HTMLComponent("templates/widgets/search.twig"))
-                .addComponent(
-                    new HTMLComponent("templates/widgets/categories.twig", 
+                .addComponent(new TwigComponent("templates/widgets/search.twig"))
+                .addComponent(new TwigComponent("templates/widgets/categories.twig", 
                     new TemplateModel("categories",categories)
                 )
         );
