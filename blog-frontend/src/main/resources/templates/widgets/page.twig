@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include "../blog/includes/header.twig" ignore missing %}
+    </head>
+    <body>
+        {% include "../blog/includes/navigation.twig" ignore missing %}
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+              
+                <div class="col-lg-8">
+                   {{leftColumn}}
+                </div>
+                <!-- Blog Sidebar Widgets Column -->
+                <div class="col-md-4">
+                  {{ rightColumn }}
+                </div>
+            </div>
+            <!-- /.row -->
+            <hr>
+            {% include "../blog/includes/footer.twig" ignore missing %}
+        </div>
+        <!-- /.container -->
+        <!-- jQuery -->
+        <script src="/js/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/js/bootstrap.min.js"></script>
+        
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+        
+         <script src="/js/validations.js"></script>
+    </body>
+</html>

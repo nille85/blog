@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value=HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
     public String handleRuntimeException(RuntimeException ex){
-        log.warn(ex.getMessage());
+        log.warn(ex.getMessage(), ex);
         return "blog/error";
             
     }
